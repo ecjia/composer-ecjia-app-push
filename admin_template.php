@@ -1,5 +1,4 @@
 <?php
-
 /**
  * ECJIA消息模板模块
  */
@@ -24,7 +23,6 @@ class admin_template extends ecjia_admin {
 		RC_Style::enqueue_style('uniform-aristo');
 		RC_Script::enqueue_script('jquery-chosen');
 		RC_Script::enqueue_script('jquery-uniform');
-		
 		RC_Script::enqueue_script('jquery-validate');
 		RC_Script::enqueue_script('jquery-form');
 		RC_Script::enqueue_script('smoke');
@@ -32,7 +30,7 @@ class admin_template extends ecjia_admin {
 		RC_Script::enqueue_script('jquery-dataTables-bootstrap');
 		RC_Script::enqueue_script('push_template', RC_App::apps_url('statics/js/push_template.js', __FILE__), array(), false, false);
 		
-		ecjia_screen::get_current_screen()->add_nav_here(new admin_nav_here(__('消息模板'),RC_Uri::url('push/admin_template/init')));
+		ecjia_screen::get_current_screen()->add_nav_here(new admin_nav_here(__('消息模板'), RC_Uri::url('push/admin_template/init')));
 	}
 
 	
@@ -60,7 +58,7 @@ class admin_template extends ecjia_admin {
 	public function add() {
 		$this->admin_priv('push_template_manage');
 	
-		$this->assign('ur_here',      '添加消息模板');
+		$this->assign('ur_here', '添加消息模板');
 		$this->assign('action_link', array('href'=>RC_Uri::url('push/admin_template/init'), 'text' => '消息模板列表'));
 		ecjia_screen::get_current_screen()->add_nav_here(new admin_nav_here(__('添加消息模板')));
 		
@@ -89,18 +87,19 @@ class admin_template extends ecjia_admin {
 		}
 		
 		$data = array(
-				'template_code'    => $template_code,
-				'template_subject' => $subject,
-				'template_content' => $content,
-				'last_modify'      => RC_Time::gmtime(),
-				'type'             =>'push'
+			'template_code'    => $template_code,
+			'template_subject' => $subject,
+			'template_content' => $content,
+			'last_modify'      => RC_Time::gmtime(),
+			'type'             =>'push'
 		);
 		
 		$tid=$this->db_mail->insert($data);
 		
 		ecjia_admin::admin_log('模板名是 '.$template_code.'，'.'消息主题是 '.$subject, 'add', 'message_template');
+		
 		$links[] = array('text' => '继续添加消息模板', 'href'=> RC_Uri::url('push/admin_template/add'));
-		$this->showmessage('添加消息模板成功！', ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_SUCCESS, array('links' => $links ,'pjaxurl' => RC_Uri::url('push/admin_template/edit', array(id => $tid))));
+		$this->showmessage('添加消息模板成功！', ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_SUCCESS, array('links' => $links, 'pjaxurl' => RC_Uri::url('push/admin_template/edit', array('id' => $tid))));
 	}
 	
 	
@@ -110,7 +109,7 @@ class admin_template extends ecjia_admin {
 	public function edit() {
 		$this->admin_priv('push_template_manage');
 
-		$this->assign('ur_here',      '编辑消息模板');
+		$this->assign('ur_here', '编辑消息模板');
 		$this->assign('action_link', array('href'=>RC_Uri::url('push/admin_template/init'), 'text' => '消息模板列表'));
 		ecjia_screen::get_current_screen()->add_nav_here(new admin_nav_here(__('编辑消息模板')));
 		
@@ -144,11 +143,11 @@ class admin_template extends ecjia_admin {
 		}
 
 		$data = array(
-				'template_code'    => $template_code,
-				'template_subject' => $subject,
-				'template_content' => $content,
-				'last_modify'      => RC_Time::gmtime(),
-				'type'             =>'push'
+			'template_code'    => $template_code,
+			'template_subject' => $subject,
+			'template_content' => $content,
+			'last_modify'      => RC_Time::gmtime(),
+			'type'             =>'push'
 		);
 		
 		$this->db_mail->where(array('template_id' => $id))->update($data);
@@ -172,7 +171,6 @@ class admin_template extends ecjia_admin {
 		ecjia_admin::admin_log('模板名是 '.$info['template_code'].'，'.'消息主题是 '.$info['template_subject'], 'remove', 'message_template');
 		$this->showmessage('删除消息模板成功！', ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_SUCCESS);
 	}
-	
 }
 
 //end

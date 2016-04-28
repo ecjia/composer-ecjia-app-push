@@ -38,7 +38,6 @@
 						<span class="help-block">{t}App上线运行请务必切换置生产环境{/t}</span> 
 					</div>
 				</div>
-				
 
 				<div>
 					<h3 class="heading">
@@ -120,5 +119,4 @@
 		</form>
 	</div>
 </div>
-
 <!-- {/block} -->

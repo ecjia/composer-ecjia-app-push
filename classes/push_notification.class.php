@@ -190,18 +190,18 @@ class push_notification {
     	 	 *		]
 		 	 *	}
 		 	 */
-			$filter = 	array(
-							"where" => 	array(
-								    		"and" 	=>  array(
-								    						array(
-							     								"tag" => "test"
-															),
-								     						array(
-							     								"tag" => "Test"
-								     						)
-								     		 			)
-								   		)
-					  	);
+			$filter = array(
+				"where" => array(
+		    		"and" =>  array(
+	    				array(
+     						"tag" => "test"
+						),
+	     				array(
+     						"tag" => "Test"
+	     				)
+	     		 	)
+		   		)
+		  	);
 					  
 			$groupcast = new AndroidGroupcast();
 			$groupcast->setAppMasterSecret($this->appMasterSecret);
@@ -362,14 +362,14 @@ class push_notification {
 		 	 *	}
 		 	 */
 			$filter = 	array(
-							"where" => 	array(
-								    		"and" 	=>  array(
-								    						array(
-							     								"tag" => "iostest"
-															)
-								     		 			)
-								   		)
-					  	);
+				"where" => array(
+		    		"and" => array(
+	    				array(
+     						"tag" => "iostest"
+						)
+		     		)
+		   		)
+		  	);
 					  
 			$groupcast = new IOSGroupcast();
 			$groupcast->setAppMasterSecret($this->appMasterSecret);

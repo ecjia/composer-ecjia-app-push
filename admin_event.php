@@ -1,5 +1,4 @@
 <?php
-
 /**
  * ECJIA消息事件
  */
@@ -12,7 +11,6 @@ class admin_event extends ecjia_admin {
 	private $dbview_push_event;
 	private $db_mail;
 	private $db_mobile_manage;
-	
 	
 	public function __construct() {
 		parent::__construct();
@@ -29,23 +27,19 @@ class admin_event extends ecjia_admin {
 		RC_Script::enqueue_script('jquery-chosen');
 		RC_Style::enqueue_style('uniform-aristo');
 		RC_Style::enqueue_style('chosen');
-		
 		RC_Script::enqueue_script('jquery-form');
 		RC_Script::enqueue_script('jquery-validate');
 		RC_Script::enqueue_script('smoke');
-		
 		RC_Script::enqueue_script('jquery.toggle.buttons', RC_Uri::admin_url('statics/lib/toggle_buttons/jquery.toggle.buttons.js'));
 		RC_Style::enqueue_style('bootstrap-toggle-buttons', RC_Uri::admin_url('statics/lib/toggle_buttons/bootstrap-toggle-buttons.css'));
-		
 		RC_Script::enqueue_script('bootstrap-editable.min', RC_Uri::admin_url('statics/lib/x-editable/bootstrap-editable/js/bootstrap-editable.min.js'));
 		RC_Style::enqueue_style('bootstrap-editable', RC_Uri::admin_url('statics/lib/x-editable/bootstrap-editable/css/bootstrap-editable.css'));
-		
 		RC_Script::enqueue_script('bootstrap-placeholder');
 		
-		RC_Style::enqueue_style('push_event', RC_App::apps_url('statics/css/push_event.css' , __FILE__), array(), false, false);
+		RC_Style::enqueue_style('push_event', RC_App::apps_url('statics/css/push_event.css', __FILE__), array(), false, false);
 		RC_Script::enqueue_script('push_event', RC_App::apps_url('statics/js/push_event.js', __FILE__), array(), false, true);
 		
-		ecjia_screen::get_current_screen()->add_nav_here(new admin_nav_here(__('消息事件'),RC_Uri::url('push/admin_event/init')));
+		ecjia_screen::get_current_screen()->add_nav_here(new admin_nav_here(__('消息事件'), RC_Uri::url('push/admin_event/init')));
 	}
 
 					
@@ -60,12 +54,7 @@ class admin_event extends ecjia_admin {
 		$count = $this->db_push_event->group(array('event_code'))->count();
 		$page = new ecjia_page ($count, 10, 5);
 		
-		$push_event = $this->dbview_push_event
-					->field(array('pe.*', 'app_name', 'template_subject'))
-					->join(array('mobile_manage', 'mail_templates'))
-					->limit($page->limit())
-					->group(array('event_code'))
-					->select();
+		$push_event = $this->dbview_push_event->field(array('pe.*', 'app_name', 'template_subject'))->join(array('mobile_manage', 'mail_templates'))->limit($page->limit())->group(array('event_code'))->select();
 		
 		if (!empty($push_event)) {
 			foreach ($push_event as $key => $val) {
@@ -96,7 +85,7 @@ class admin_event extends ecjia_admin {
 		/* 获取客户端应用*/
 		$mobile_manage = $this->db_mobile_manage->where(array('status' => 1))->select();
 		
-		$this->assign('template_data' , $template_data);
+		$this->assign('template_data', $template_data);
 		$this->assign('mobile_manage', $mobile_manage);
 		$this->assign('action_link', array('text' => __('消息事件'), 'href' => RC_Uri::url('push/admin_event/init')));
 		ecjia_screen::$current_screen->add_nav_here(new admin_nav_here(__('添加消息事件')));
@@ -120,17 +109,16 @@ class admin_event extends ecjia_admin {
 			$this->showmessage('消息事件code已存在！', ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_ERROR);
 		}
 		$data = array(
-				'event_name'	=> $name,
-				'event_code'	=> $code,
-				'create_time'	=> RC_Time::gmtime(),
+			'event_name'	=> $name,
+			'event_code'	=> $code,
+			'create_time'	=> RC_Time::gmtime(),
 		);
 		$id = $this->db_push_event->insert($data);
 	
 		ecjia_admin::admin_log($data['event_name'], 'add', 'push_evnet');
 	
 		$links[] = array('text' => __('消息事件'), 'href' => RC_Uri::url('push/admin_event/init'));
-	
-		$this->showmessage('添加消息事件成功！', ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_SUCCESS, array('links' => $links , 'pjaxurl' => RC_Uri::url('push/admin_event/edit', 'code='.$code)));
+		$this->showmessage('添加消息事件成功！', ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_SUCCESS, array('links' => $links, 'pjaxurl' => RC_Uri::url('push/admin_event/edit', 'code='.$code)));
 	
 	}
 	
@@ -154,20 +142,20 @@ class admin_event extends ecjia_admin {
 		
 		if (!empty($event_push)) {
 			$data = array(
-					'event_name'	=> $name,
-					'app_id'		=> $app_id,
-					'template_id'	=> $template_id,
-					'is_open'		=> $status,
+				'event_name'	=> $name,
+				'app_id'		=> $app_id,
+				'template_id'	=> $template_id,
+				'is_open'		=> $status,
 			);
 			$this->db_push_event->where(array('event_id' => $event_push['event_id']))->update($data);
 		} else {
 			$data = array(
-					'event_name'	=> $name,
-					'event_code'	=> $code,
-					'app_id'		=> $app_id,
-					'template_id'	=> $template_id,
-					'is_open'		=> $status,
-					'create_time'	=> RC_Time::gmtime(),
+				'event_name'	=> $name,
+				'event_code'	=> $code,
+				'app_id'		=> $app_id,
+				'template_id'	=> $template_id,
+				'is_open'		=> $status,
+				'create_time'	=> RC_Time::gmtime(),
 			);
 			$this->db_push_event->insert($data);
 		}
@@ -176,8 +164,7 @@ class admin_event extends ecjia_admin {
 		ecjia_admin::admin_log($data['event_name'], 'add', 'push_evnet');
 		$links[] = array('text' => __('消息事件'), 'href' => RC_Uri::url('push/admin_event/init'));
 		
-		$this->showmessage('添加消息事件成功！', ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_SUCCESS, array('links' => $links , 'pjaxurl' => RC_Uri::url('push/admin_event/edit', 'code='.$code)));
-		
+		$this->showmessage('添加消息事件成功！', ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_SUCCESS, array('links' => $links, 'pjaxurl' => RC_Uri::url('push/admin_event/edit', 'code='.$code)));
 	}
 	
 	/**
@@ -192,8 +179,6 @@ class admin_event extends ecjia_admin {
 							->join(array('mobile_manage', 'mail_templates'))
 							->where(array('type' => 'push', 'event_code' => $push_event['event_code']))
 							->select();
-		
-		
 		/* 获取推送模板*/
 		$template_data = $this->db_mail->field('template_id, template_subject')->where(array('type' => 'push'))->select();
 		
@@ -202,7 +187,7 @@ class admin_event extends ecjia_admin {
 		
 		$this->assign('push_event', $push_event);
 		$this->assign('push_event_group', $push_event_group);
-		$this->assign('template_data' , $template_data);
+		$this->assign('template_data', $template_data);
 		$this->assign('mobile_manage', $mobile_manage);
 		$this->assign('action_link', array('text' => __('消息事件'), 'href' => RC_Uri::url('push/admin_event/init')));
 		ecjia_screen::$current_screen->add_nav_here(new admin_nav_here(__('编辑消息事件')));
@@ -229,11 +214,11 @@ class admin_event extends ecjia_admin {
 		}
 		
 		$data = array(
-				'event_name'	=> $name,
-				'app_id'		=> $app_id,
-				'template_id'	=> $template_id,
-				'is_open'		=> $status,
-				'create_time'	=> RC_Time::gmtime(),
+			'event_name'	=> $name,
+			'app_id'		=> $app_id,
+			'template_id'	=> $template_id,
+			'is_open'		=> $status,
+			'create_time'	=> RC_Time::gmtime(),
 		);
 		$this->db_push_event->where(array('event_id' => $id))->update($data);
 		$event_code = $this->db_push_event->where(array('event_id' => $id))->get_field('event_code');
@@ -256,8 +241,7 @@ class admin_event extends ecjia_admin {
 		$this->db_push_event->delete(array('event_code' => $code));
 		
 		ecjia_admin::admin_log($name, 'remove', 'push_evnet');
-		$this->showmessage('删除消息事件成功！', ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_SUCCESS, array('links' => $links , 'pjaxurl' => RC_Uri::url('push/admin_event/init')));
-		
+		$this->showmessage('删除消息事件成功！', ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_SUCCESS, array('pjaxurl' => RC_Uri::url('push/admin_event/init')));
 	}
 	
 	/**
@@ -274,12 +258,10 @@ class admin_event extends ecjia_admin {
 		ecjia_admin::admin_log($push_event['event_name'], 'remove', 'push_evnet');
 		$count = $this->db_push_event->where(array('event_code' => $push_event['event_code']))->count();
 		if ($count > 0 ) {
-			$this->showmessage('删除消息事件成功！', ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_SUCCESS, array('links' => $links , 'pjaxurl' => RC_Uri::url('push/admin_event/edit', 'code='.$push_event['event_code'])));
+			$this->showmessage('删除消息事件成功！', ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_SUCCESS, array('pjaxurl' => RC_Uri::url('push/admin_event/edit', 'code='.$push_event['event_code'])));
 		} else {
-			$this->showmessage('删除消息事件成功！', ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_SUCCESS, array('links' => $links , 'pjaxurl' => RC_Uri::url('push/admin_event/init')));
+			$this->showmessage('删除消息事件成功！', ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_SUCCESS, array('pjaxurl' => RC_Uri::url('push/admin_event/init')));
 		}
-		
-	
 	}
 }
 

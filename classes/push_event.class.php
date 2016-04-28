@@ -36,7 +36,6 @@ class push_event {
         return $datas;  
     }
     
-    
     public function add_user($user_id) {
         if (is_array($user_id)) {
             $this->user_ids = $user_id;
@@ -56,12 +55,8 @@ class push_event {
                     'device_token'  => $device['device_token'],
                 );
             }
-            
         }
-        
-        
     }
-    
     
     public function add_admin($admin_id) {
         if (is_array($admin_id)) {
@@ -82,14 +77,12 @@ class push_event {
                     'device_token'  => $device['device_token'],
                 );
             }
-        
         }
     }
     
     public function send() {
         
     }
-    
 }
 
 // end

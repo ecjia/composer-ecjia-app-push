@@ -12,7 +12,6 @@ class push_installer  extends ecjia_installer {
         parent::__construct($id);
     }
     
-    
     public function install() {
         $table_name = 'push_message';
         if (!RC_Model::make()->table_exists($table_name)) {
