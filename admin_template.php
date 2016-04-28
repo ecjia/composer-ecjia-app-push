@@ -83,7 +83,7 @@ class admin_template extends ecjia_admin {
 		
 		$titlecount = $this->db_mail->where(array('template_code'=>$template_code,'type'=>'push'))->count();
 		if($titlecount > 0) {
-			$this->showmessage('该消息模板的名称已经存在！',ecjia::MSGTYPE_JSON|ecjia::MSGSTAT_ERROR);
+			$this->showmessage('该消息模板的名称已经存在！', ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_ERROR);
 		}
 		
 		$data = array(
