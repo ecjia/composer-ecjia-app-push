@@ -274,7 +274,7 @@ class admin extends ecjia_admin {
 		}
 
 		if (is_ecjia_error($result)) {
-			$this->showmessage($result->get_error_message(), ecjia_admin::MSGTYPE_JSON | ecjia_admin::MSGSTAT_ERROR);
+			$this->showmessage($result->get_error_message(), ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_ERROR);
 		} else {
 			$this->showmessage('推送消息成功！', ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_SUCCESS, array('pjaxurl' => RC_Uri::url('push/admin/init')));
 		}
@@ -320,7 +320,7 @@ class admin extends ecjia_admin {
 		$appid = $_GET['appid'];
 		push_send::make($appid)->batch_resend($messageids);
 		
-		$this->showmessage('已批量推送完毕', ecjia_admin::MSGTYPE_JSON | ecjia_admin::MSGSTAT_SUCCESS, array('pjaxurl' => RC_Uri::url('push/admin/init', array('appid' => $appid))));
+		$this->showmessage('已批量推送完毕', ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_SUCCESS, array('pjaxurl' => RC_Uri::url('push/admin/init', array('appid' => $appid))));
 	}
 	
 	/**
@@ -331,7 +331,7 @@ class admin extends ecjia_admin {
 	
 		$success = $this->db_push->in(array('message_id' => $_POST['message_id']))->delete();
 		if ($success) {
-			$this->showmessage('批量操作成功！', ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_SUCCESS,array('pjaxurl' => RC_Uri::url('push/admin/init')));
+			$this->showmessage('批量操作成功！', ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_SUCCESS, array('pjaxurl' => RC_Uri::url('push/admin/init')));
 		}
 	}
 	
