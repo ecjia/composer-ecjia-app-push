@@ -215,7 +215,7 @@ class admin extends ecjia_admin {
 		        }
 		        
 		        $device_info = RC_Api::api('mobile', 'device_info', array('admin_id' => $admin_id));
-		        if (empty($device_info['device_client']) || empty($device_info['devive_token'])) {
+		        if (empty($device_info['device_client']) || empty($device_info['device_token'])) {
 		            $this->showmessage(__('未找到该用户的Device Token！'), ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_ERROR);
 		        }
 		    } elseif ($target == 2) {
@@ -224,17 +224,17 @@ class admin extends ecjia_admin {
 		        }
 		        
 		        $device_info = RC_Api::api('mobile', 'device_info', array('user_id' => $user_id));
-		        if (empty($device_info['device_client']) || empty($device_info['devive_token'])) {
+		        if (empty($device_info['device_client']) || empty($device_info['device_token'])) {
 		            $this->showmessage(__('未找到该用户的Device Token！'), ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_ERROR);
 		        }
 		    }
 		    
 		    if ($device_info['device_client'] == 'android') {
-		        $result = push_send::make($appid)->set_client(push_send::CLIENT_ANDROID)->set_field($custom_fields)->send($device_info['devive_token'], $title, $content, 0, $priority);
+		        $result = push_send::make($appid)->set_client(push_send::CLIENT_ANDROID)->set_field($custom_fields)->send($device_info['device_token'], $title, $content, 0, $priority);
 		    } elseif ($device_info['device_client'] == 'iphone') {
-		        $result = push_send::make($appid)->set_client(push_send::CLIENT_IPHONE)->set_field($custom_fields)->send($device_info['devive_token'], $title, $content, 0, $priority);
+		        $result = push_send::make($appid)->set_client(push_send::CLIENT_IPHONE)->set_field($custom_fields)->send($device_info['device_token'], $title, $content, 0, $priority);
 		    } elseif($device_info['device_client'] == 'ipad') {
-		        $result = push_send::make($appid)->set_client(push_send::CLIENT_IPAD)->set_field($custom_fields)->send($device_info['devive_token'], $title, $content, 0, $priority);
+		        $result = push_send::make($appid)->set_client(push_send::CLIENT_IPAD)->set_field($custom_fields)->send($device_info['device_token'], $title, $content, 0, $priority);
 		    }
 		} else {
 		    if (empty($device_client)) {
