@@ -208,7 +208,7 @@ class admin extends ecjia_admin {
 			$custom_fields['order_id'] = $order_id;
 		}
 
-		if ($target == 3 & $target == 2) {
+		if ($target == 3 || $target == 2) {
 		    if ($target == 3) {
 		        if (empty($admin_id)) {
 		            $this->showmessage(__('请输入管理员ID！'), ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_ERROR);
