@@ -41,15 +41,16 @@ class admin extends ecjia_admin {
 		$this->admin_priv('push_history_manage');
 				
 		$applistdb = $this->get_applist();
-
-        foreach ($applistdb['item'] as $key => $val) {
-        	$appcount = $this->db_push->where(array('app_id' =>$val['app_id']))->count();
-        	$applistdb['item'][$key]['count'] = $appcount;
-        }
+		$appid = isset($_GET['appid']) ? trim($_GET['appid']) : '';
 		
-		$appid = $_GET['appid'];
-		if(empty($appid)) {
-			$appid = $applistdb['item'][0]['app_id'];
+		if (!empty($applistdb['item'])) {
+			foreach ($applistdb['item'] as $key => $val) {
+				$appcount = $this->db_push->where(array('app_id' =>$val['app_id']))->count();
+				$applistdb['item'][$key]['count'] = $appcount;
+				if(empty($appid)) {
+					$appid = $applistdb['item'][0]['app_id'];
+				}
+			}
 		}
 		
 		$listdb = $this->get_pushlist($appid);
