@@ -112,7 +112,7 @@
 				
 				<div class="control-group">
 					<div class="controls">
-						<input type="submit" value="{$lang.button_submit}" class="btn btn-gebo" />
+						<input type="submit" value="确定" class="btn btn-gebo" />
 					</div>
 				</div>
 			</fieldset>
