@@ -55,7 +55,12 @@ class push_push_send_api extends Component_Event_Api {
 	        		return new ecjia_error('device_token_not_found' ,__('未找到该用户的Device Token！'));
 	        	}
 	        	
-	            push_send::make($appid)->set_client($device_info['device_client'])->set_field($options['custom_fields'])->send($device_info['device_token'], $options['msg'], $options['msg'], $options['template_id'], $priority);
+	        	if ($options['custom_fields'] && is_array($options['custom_fields'])) {
+	        	    push_send::make($appid)->set_client($device_info['device_client'])->set_field($options['custom_fields'])->send($device_info['device_token'], $options['msg'], $options['msg'], $options['template_id'], $priority);
+	        	} else {
+	        	    push_send::make($appid)->set_client($device_info['device_client'])->send($device_info['device_token'], $options['msg'], $options['msg'], $options['template_id'], $priority);
+	        	}
+	            
 	        }
 	        return true;
 	    } else {
