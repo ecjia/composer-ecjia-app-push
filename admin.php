@@ -184,27 +184,27 @@ class admin extends ecjia_admin {
 		
 		if ($action == 'webview') {
 			if (empty($url)) {
-				$this->showmessage(__('请输入网址！'), ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_ERROR);
+				return $this->showmessage(__('请输入网址！'), ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_ERROR);
 			}
 			$custom_fields['url'] = $url;
 		} elseif ($action == 'search') {
 			if (empty($keyword)) {
-				$this->showmessage(__('请输入关键字！'), ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_ERROR);
+				return $this->showmessage(__('请输入关键字！'), ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_ERROR);
 			}
 			$custom_fields['keyword'] = $keyword;
 		} elseif ($action == 'goods_list') {
 			if (empty($category_id)) {
-				$this->showmessage(__('请输入商品分类ID！'), ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_ERROR);
+				return $this->showmessage(__('请输入商品分类ID！'), ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_ERROR);
 			}
 			$custom_fields['category_id'] = $category_id;
 		} elseif ($action == 'goods_comment' || $action == 'goods_detail') {
 			if (empty($goods_id)) {
-				$this->showmessage(__('请输入商品ID！'), ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_ERROR);
+				return $this->showmessage(__('请输入商品ID！'), ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_ERROR);
 			}
 			$custom_fields['goods_id'] = $goods_id;
 		} elseif ($action == 'orders_detail') {
 			if (empty($order_id)) {
-				$this->showmessage(__('请输入订单ID！'), ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_ERROR);
+				return $this->showmessage(__('请输入订单ID！'), ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_ERROR);
 			}
 			$custom_fields['order_id'] = $order_id;
 		}
@@ -212,21 +212,21 @@ class admin extends ecjia_admin {
 		if ($target == 3 || $target == 2) {
 		    if ($target == 3) {
 		        if (empty($admin_id)) {
-		            $this->showmessage(__('请输入管理员ID！'), ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_ERROR);
+		            return $this->showmessage(__('请输入管理员ID！'), ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_ERROR);
 		        }
 		        
 		        $device_info = RC_Api::api('mobile', 'device_info', array('admin_id' => $admin_id));
 		        if (empty($device_info['device_client']) || empty($device_info['devive_token'])) {
-		            $this->showmessage(__('未找到该用户的Device Token！'), ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_ERROR);
+		            return $this->showmessage(__('未找到该用户的Device Token！'), ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_ERROR);
 		        }
 		    } elseif ($target == 2) {
 		        if (empty($user_id)) {
-		            $this->showmessage(__('请输入用户ID！'), ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_ERROR);
+		            return $this->showmessage(__('请输入用户ID！'), ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_ERROR);
 		        }
 		        
 		        $device_info = RC_Api::api('mobile', 'device_info', array('user_id' => $user_id));
 		        if (empty($device_info['device_client']) || empty($device_info['devive_token'])) {
-		            $this->showmessage(__('未找到该用户的Device Token！'), ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_ERROR);
+		            return $this->showmessage(__('未找到该用户的Device Token！'), ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_ERROR);
 		        }
 		    }
 		    
@@ -239,19 +239,19 @@ class admin extends ecjia_admin {
 		    }
 		} else {
 		    if (empty($device_client)) {
-		        $this->showmessage(__('该用户未绑定移动端设备！'), ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_ERROR);
+		        return $this->showmessage(__('该用户未绑定移动端设备！'), ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_ERROR);
 		    } 
 		    
 		    if ($target == 1) {
 		        if (empty($devive_token)) {
-		            $this->showmessage(__('请输入Device Token！'), ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_ERROR);
+		            return $this->showmessage(__('请输入Device Token！'), ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_ERROR);
 		        }
 		        
 		        $token_len = strlen($devive_token);
 		        if ($device_client == push_send::CLIENT_ANDROID && $token_len != 44) {
-		            $this->showmessage(__('输入Device Token的长度不合法！'), ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_ERROR);
+		            return $this->showmessage(__('输入Device Token的长度不合法！'), ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_ERROR);
 		        } elseif (($device_client == push_send::CLIENT_IPHONE && $token_len != 64) || ($device_client == push_send::CLIENT_IPAD && $token_len != 64)) {
-		            $this->showmessage(__('请输入Device Token的长度不合法！'), ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_ERROR);
+		            return $this->showmessage(__('请输入Device Token的长度不合法！'), ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_ERROR);
 		        }
 		        
 		        if ($device_client == 'android') {
@@ -275,9 +275,9 @@ class admin extends ecjia_admin {
 		}
 
 		if (is_ecjia_error($result)) {
-			$this->showmessage($result->get_error_message(), ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_ERROR);
+			return $this->showmessage($result->get_error_message(), ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_ERROR);
 		} else {
-			$this->showmessage('推送消息成功！', ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_SUCCESS, array('pjaxurl' => RC_Uri::url('push/admin/init')));
+			return $this->showmessage('推送消息成功！', ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_SUCCESS, array('pjaxurl' => RC_Uri::url('push/admin/init')));
 		}
 	}
 	
@@ -290,7 +290,7 @@ class admin extends ecjia_admin {
 		$message_id = intval($_GET['message_id']);
 		$this->db_push->where(array('message_id' => $message_id))->delete();
 			
-		$this->showmessage('删除消息成功！', ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_SUCCESS);
+		return $this->showmessage('删除消息成功！', ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_SUCCESS);
 	}
 	
 	/**
@@ -305,9 +305,9 @@ class admin extends ecjia_admin {
 		$result = push_send::make($appid)->resend($message_id);
 	
 		if (is_ecjia_error($result)) {
-			$this->showmessage($result->get_error_message(), ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_ERROR, array('pjaxurl' => RC_Uri::url('push/admin/init', array('appid' => $appid))));
+			return $this->showmessage($result->get_error_message(), ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_ERROR, array('pjaxurl' => RC_Uri::url('push/admin/init', array('appid' => $appid))));
 		} else {
-			$this->showmessage('推送消息成功！', ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_SUCCESS, array('pjaxurl' => RC_Uri::url('push/admin/init', array('appid' => $appid))));
+			return $this->showmessage('推送消息成功！', ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_SUCCESS, array('pjaxurl' => RC_Uri::url('push/admin/init', array('appid' => $appid))));
 		}
 	}
 	
@@ -321,7 +321,7 @@ class admin extends ecjia_admin {
 		$appid = $_GET['appid'];
 		push_send::make($appid)->batch_resend($messageids);
 		
-		$this->showmessage('已批量推送完毕', ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_SUCCESS, array('pjaxurl' => RC_Uri::url('push/admin/init', array('appid' => $appid))));
+		return $this->showmessage('已批量推送完毕', ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_SUCCESS, array('pjaxurl' => RC_Uri::url('push/admin/init', array('appid' => $appid))));
 	}
 	
 	/**
@@ -332,7 +332,7 @@ class admin extends ecjia_admin {
 	
 		$success = $this->db_push->in(array('message_id' => $_POST['message_id']))->delete();
 		if ($success) {
-			$this->showmessage('批量操作成功！', ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_SUCCESS, array('pjaxurl' => RC_Uri::url('push/admin/init')));
+			return $this->showmessage('批量操作成功！', ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_SUCCESS, array('pjaxurl' => RC_Uri::url('push/admin/init')));
 		}
 	}
 	

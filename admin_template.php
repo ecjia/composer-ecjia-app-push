@@ -83,7 +83,7 @@ class admin_template extends ecjia_admin {
 		
 		$titlecount = $this->db_mail->where(array('template_code'=>$template_code,'type'=>'push'))->count();
 		if($titlecount > 0) {
-			$this->showmessage('该消息模板的名称已经存在！', ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_ERROR);
+			return $this->showmessage('该消息模板的名称已经存在！', ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_ERROR);
 		}
 		
 		$data = array(
@@ -99,7 +99,7 @@ class admin_template extends ecjia_admin {
 		ecjia_admin::admin_log('模板名是 '.$template_code.'，'.'消息主题是 '.$subject, 'add', 'message_template');
 		
 		$links[] = array('text' => '继续添加消息模板', 'href'=> RC_Uri::url('push/admin_template/add'));
-		$this->showmessage('添加消息模板成功！', ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_SUCCESS, array('links' => $links, 'pjaxurl' => RC_Uri::url('push/admin_template/edit', array('id' => $tid))));
+		return $this->showmessage('添加消息模板成功！', ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_SUCCESS, array('links' => $links, 'pjaxurl' => RC_Uri::url('push/admin_template/edit', array('id' => $tid))));
 	}
 	
 	
@@ -138,7 +138,7 @@ class admin_template extends ecjia_admin {
 		if ($template_code != $old_template_code) {
 			$titlecount = $this->db_mail->where(array('template_code'=>$template_code,'type'=>'push'))->count();
 			if ($titlecount > 0) {
-				$this->showmessage('该消息模板的名称已经存在！', ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_ERROR);
+				return $this->showmessage('该消息模板的名称已经存在！', ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_ERROR);
 			}
 		}
 
@@ -153,7 +153,7 @@ class admin_template extends ecjia_admin {
 		$this->db_mail->where(array('template_id' => $id))->update($data);
 		
 		ecjia_admin::admin_log('模板名是 '.$template_code.'，'.'消息主题是 '.$subject, 'edit', 'message_template');
-	  	$this->showmessage('更新消息模板成功！', ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_SUCCESS);
+	  	return $this->showmessage('更新消息模板成功！', ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_SUCCESS);
 	}
 	
 	
@@ -169,7 +169,7 @@ class admin_template extends ecjia_admin {
 		$this->db_mail->where(array('template_id' => $id))->delete();
 		
 		ecjia_admin::admin_log('模板名是 '.$info['template_code'].'，'.'消息主题是 '.$info['template_subject'], 'remove', 'message_template');
-		$this->showmessage('删除消息模板成功！', ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_SUCCESS);
+		return $this->showmessage('删除消息模板成功！', ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_SUCCESS);
 	}
 }
 

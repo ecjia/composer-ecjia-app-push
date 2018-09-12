@@ -86,7 +86,7 @@ class admin_config extends ecjia_admin {
 		ecjia_config::instance()->write_config('push_user_signin',     	intval($_POST['config_user']));
 		
 		ecjia_admin::admin_log('推送消息>消息配置', 'setup', 'config');
-		$this->showmessage('更新消息配置成功！', ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_SUCCESS, array('pjaxurl' => RC_Uri::url('push/admin_config/init')));
+		return $this->showmessage('更新消息配置成功！', ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_SUCCESS, array('pjaxurl' => RC_Uri::url('push/admin_config/init')));
 	}
 }
 
