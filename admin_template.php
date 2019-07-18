@@ -49,7 +49,7 @@ class admin_template extends ecjia_admin {
 		$this->assign('templates',$data);
 
 		$this->assign_lang();
-		$this->display('push_template_list.dwt');
+		return $this->display('push_template_list.dwt');
 	}
 	
 	/**
@@ -67,7 +67,7 @@ class admin_template extends ecjia_admin {
 		$this->assign('action', 'insert');
 		
 		$this->assign_lang();
-		$this->display('push_template_info.dwt');
+		return $this->display('push_template_info.dwt');
 	}
 	
 	
@@ -120,7 +120,7 @@ class admin_template extends ecjia_admin {
 		$this->assign('form_action', RC_Uri::url('push/admin_template/update'));
 		
 		$this->assign_lang();
-		$this->display('push_template_info.dwt');
+		return $this->display('push_template_info.dwt');
 	}
 	
 	/**

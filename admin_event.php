@@ -71,7 +71,7 @@ class admin_event extends ecjia_admin {
 		ecjia_screen::$current_screen->add_nav_here(new admin_nav_here(__('消息事件')));
 		$this->assign('ur_here', '消息事件');
 		
-		$this->display('push_event_list.dwt');
+		return $this->display('push_event_list.dwt');
 	}
 	
 	/**
@@ -92,7 +92,7 @@ class admin_event extends ecjia_admin {
 		$this->assign('ur_here', __('添加消息事件'));
 		
 		$this->assign('insert_form_action', RC_Uri::url('push/admin_event/insert_code'));
-		$this->display('push_event_info.dwt');
+		return $this->display('push_event_info.dwt');
 	}
 	
 	/**
@@ -195,7 +195,7 @@ class admin_event extends ecjia_admin {
 		
 		$this->assign('update_form_action', RC_Uri::url('push/admin_event/update'));
 		$this->assign('insert_form_action', RC_Uri::url('push/admin_event/insert'));
-		$this->display('push_event_info.dwt');
+		return $this->display('push_event_info.dwt');
 	}
 	
 	/**

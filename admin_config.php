@@ -59,7 +59,7 @@ class admin_config extends ecjia_admin {
 		$this->assign('form_action', RC_Uri::url('push/admin_config/update'));
 		
 		$this->assign_lang();
-		$this->display('push_config.dwt');
+		return $this->display('push_config.dwt');
 	}
 		
 	/**

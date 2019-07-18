@@ -65,7 +65,7 @@ class admin extends ecjia_admin {
 		ecjia_screen::get_current_screen()->add_nav_here(new admin_nav_here(__('消息记录')));
 		
 		$this->assign_lang();
-		$this->display('push_send_history.dwt');
+		return $this->display('push_send_history.dwt');
 	}
 					
 	/**
@@ -91,7 +91,7 @@ class admin extends ecjia_admin {
 		$this->assign('form_action', RC_Uri::url('push/admin/push_insert'));
 		
 		$this->assign_lang();
-		$this->display('push_send.dwt');
+		return $this->display('push_send.dwt');
 	}
 	
 	
@@ -143,7 +143,7 @@ class admin extends ecjia_admin {
 		$this->assign('form_action', RC_Uri::url('push/admin/push_insert'));
 		$this->assign_lang();
 		
-		$this->display('push_send.dwt');
+		return $this->display('push_send.dwt');
 	}
 			
 	/**
