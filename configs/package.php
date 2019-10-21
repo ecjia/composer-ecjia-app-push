@@ -7,14 +7,29 @@
 defined('IN_ECJIA') or exit('No permission resources.');
 
 return array(
-	'identifier' 	=> 'ecjia.push',
-	'directory' 	=> 'push',
-	'name'			=> 'push',
-	'description' 	=> 'push_desc',				/* 描述对应的语言项 */
-	'author' 		=> 'ECJIA TEAM',			/* 作者 */
-	'website' 		=> 'http://www.ecjia.com',	/* 网址 */
-	'version' 		=> '1.0.0',					/* 版本号 */
-	'copyright' 	=> 'ECJIA Copyright 2014.'
+    'identifier'  => 'ecjia.push',
+    'directory'   => 'push',
+    'name'        => 'push',
+    'description' => 'push_desc',                /* 描述对应的语言项 */
+    'author'      => 'ECJIA TEAM',            /* 作者 */
+    'website'     => 'http://www.ecjia.com',    /* 网址 */
+    'version'     => '1.0.0',                    /* 版本号 */
+    'copyright'   => 'ECJIA Copyright 2014.',
+    'namespace'   => 'Ecjia\App\Push',
+    'provider'    => 'PushServiceProvider',
+    'autoload'    => array(
+        'psr-4' => array(
+            "Ecjia\\App\\Push\\" => "classes/"
+        )
+    ),
+    'discover'    => array(
+        'providers' => array(
+            "Ecjia\\App\\Push\\PushServiceProvider"
+        ),
+        'aliases'   => [
+
+        ]
+    ),
 );
 
 // end
