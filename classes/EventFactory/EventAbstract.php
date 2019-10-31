@@ -47,14 +47,10 @@
 
 namespace Ecjia\App\Push\EventFactory;
 
-abstract class EventAbstract
+use Ecjia\App\Push\Models\PushEventModel;
+
+abstract class EventAbstract extends \Ecjia\Component\ComponentFactory\ComponentAbstract
 {
-    
-    protected $code;
-    
-    protected $name;
-    
-    protected $description;
     
     protected $template;
     
@@ -63,22 +59,6 @@ abstract class EventAbstract
     protected $sound = 'chime';
     
     protected $mutableContent = 0;
-    
-    
-    public function getCode()
-    {
-        return $this->code;
-    }
-    
-    public function getName()
-    {
-        return $this->name;
-    }
-    
-    public function getDescription()
-    {
-        return $this->description;
-    }
     
     public function getTemplate()
     {
@@ -102,7 +82,7 @@ abstract class EventAbstract
     
     public function hasEnabled()
     {
-        $model = new \Ecjia\App\Push\Models\PushEventModel();
+        $model = new PushEventModel();
         
         $event = $model->getEventByCode($this->code);
         if ($event->status == 'open') 
