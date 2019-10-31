@@ -47,59 +47,39 @@
 
 namespace Ecjia\App\Push\NotificationFactory;
 
-use RC_Hook;
-use RC_Cache;
-use InvalidArgumentException;
 
-class NotificationFactory
+class NotificationFactory extends \Ecjia\Component\ComponentFactory\ComponentFactory
 {
 
-    protected static $factories;
-    
-    public function __construct()
+    /**
+     * 缓存key
+     *
+     * @return  string
+     */
+    public function getCacheKey()
     {
-        self::$factories = $this->getFactories();
+        return 'push_notification_factories';
     }
 
-    public function getFactories()
+    /**
+     * @return \Ecjia\System\Frameworks\Component\Cache
+     */
+    public function getCacheInstance()
     {
-        $cache_key = 'push_notification_factories';
-        
-        $factories = RC_Cache::app_cache_get($cache_key, 'push');
-        
-        if (empty($factories)) {
-            
-            $dir = __DIR__ . '/Clients';
-            
-            $events = royalcms('files')->files($dir);
-        
-            $factories = [];
-            
-            foreach ($events as $key => $value) {
-                $value = str_replace($dir . '/', '', $value);
-                $value = str_replace('.php', '', $value);
-                $className = __NAMESPACE__ . '\Clients\\' . $value;
-                
-                $key = with(new $className)->getCode();
-                $factories[$key] = $className;
-            }
-
-            RC_Cache::app_cache_set($cache_key, $factories, 'push', 10080);
-        }
-
-        return RC_Hook::apply_filters('ecjia_push_notification_filter', $factories);
+        return ecjia_cache('push');
     }
-    
-    
+
+    public function getHookTag()
+    {
+        return 'ecjia_push_notification_filter';
+    }
+
+    /**
+     * @return array
+     */
     public function getNotifications()
     {
-        $events = [];
-        
-        foreach (self::$factories as $key => $value) {
-            $events[$key] = new $value;
-        }
-
-        return $events;
+        return $this->getComponents();
     }
 
     /**
@@ -108,13 +88,7 @@ class NotificationFactory
      */
     public function notification($code)
     {
-        if (!array_key_exists($code, self::$factories)) {
-            throw new InvalidArgumentException("Notification '$code' is not supported.");
-        }
-    
-        $className = self::$factories[$code];
-    
-        return new $className();
+        return $this->component($code);
     }
     
 }

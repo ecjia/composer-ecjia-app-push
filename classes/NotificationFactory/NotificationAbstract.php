@@ -50,10 +50,9 @@ namespace Ecjia\App\Push\NotificationFactory;
  * 消息推送通知管理类
  * @author royalwang
  */
-abstract class NotificationAbstract 
+abstract class NotificationAbstract extends \Ecjia\Component\ComponentFactory\ComponentAbstract
 {
-    protected $code;
-    
+
 	protected $appKey; 
 	protected $appMasterSecret;
 	protected $timestamp;
@@ -112,20 +111,15 @@ abstract class NotificationAbstract
 	{
 	    return $this->debug;
 	}
-	
-	/**
-	 * 获取客户端标识符
-	 */
-	public function getCode()
-	{
-	    return $this->code;
-	}
-	
-	/**
-	 * 添加内容
-	 * @param string $content
-	 */
-	public function addContent($description, $content) {
+
+    /**
+     * 添加内容
+     * @param $description
+     * @param string $content
+     * @return NotificationAbstract
+     */
+	public function addContent($description, $content)
+    {
 	    $this->push_description = $description;
 	    $this->push_content = $content;
 	    return $this;
@@ -135,12 +129,14 @@ abstract class NotificationAbstract
 	 * 添加自定义字段
 	 * @param array $field
 	 */
-	public function addField(array $field) {
+	public function addField(array $field)
+    {
 	    $this->custom_fields = $field;
 	    return $this;
 	}
 	
-	public function addDeviceToken($device_token) {
+	public function addDeviceToken($device_token)
+    {
 	    if (is_string($device_token)) {
 	        $this->device_tokens[] = $device_token;
 	    } elseif (is_array($device_token)) {
