@@ -45,7 +45,7 @@
 //  ---------------------------------------------------------------------------------
 //
 
-namespace Ecjia\App\Push;
+namespace Ecjia\App\Push\EventFactory;
 
 abstract class EventAbstract
 {

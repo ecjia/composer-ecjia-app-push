@@ -47,7 +47,7 @@
 
 namespace Ecjia\App\Push\Events;
 
-use Ecjia\App\Push\EventAbstract;
+use Ecjia\App\Push\EventFactory\EventAbstract;
 
 class ExpressConfirm extends EventAbstract
 {

@@ -45,7 +45,7 @@
 //  ---------------------------------------------------------------------------------
 //
 
-namespace Ecjia\App\Push;
+namespace Ecjia\App\Push\EventFactory;
 
 use RC_Hook;
 use RC_Cache;
