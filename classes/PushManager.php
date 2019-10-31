@@ -47,6 +47,8 @@
 
 namespace Ecjia\App\Push;
 
+use Ecjia\App\Client\ApplicationFactory;
+use Ecjia\App\Push\EventFactory\EventAbstract;
 use Ecjia\App\Push\Models\PushTemplateModel;
 use Ecjia\App\Push\Models\PushMessageModel;
 use Ecjia\App\Push\Sends\EventSend;
@@ -64,7 +66,7 @@ class PushManager extends RC_Object
     protected $model;
 
     /**
-     * @var \Ecjia\App\Push\EventAbstract
+     * @var \Ecjia\App\Push\EventFactory\EventAbstract
      */
     protected $event;
 
@@ -198,7 +200,7 @@ class PushManager extends RC_Object
             try {
                 $client = $message['device_client'];
 
-                $client     = (new \Ecjia\App\Mobile\ApplicationFactory)->client($message['device_code']);
+                $client     = (new ApplicationFactory)->client($message['device_code']);
                 $push_umeng = $client->getOption($plugin);
 
                 if (empty($push_umeng)) {
@@ -382,7 +384,7 @@ class PushManager extends RC_Object
         {
             try {
                 $plugin     = 'push_umeng';
-                $client     = (new \Ecjia\App\Mobile\ApplicationFactory)->client($device_code);
+                $client     = (new ApplicationFactory)->client($device_code);
                 $push_umeng = $client->getOption($plugin);
 
                 if (empty($push_umeng)) {
@@ -445,7 +447,7 @@ class PushManager extends RC_Object
         {
             try {
                 $plugin     = 'push_umeng';
-                $client     = (new \Ecjia\App\Mobile\ApplicationFactory)->client($device_code);
+                $client     = (new ApplicationFactory)->client($device_code);
                 $push_umeng = $client->getOption($plugin);
 
                 if (empty($push_umeng)) {

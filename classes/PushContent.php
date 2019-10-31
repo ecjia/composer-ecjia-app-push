@@ -102,7 +102,7 @@ class PushContent
     }
 
     /**
-     * @return string
+     * @return array
      */
     public function getTemplateVar()
     {

@@ -46,6 +46,8 @@
 //
 namespace Ecjia\App\Push;
 
+use Ecjia\App\Push\NotificationFactory\NotificationFactory;
+
 class PushSend
 {
     /**
