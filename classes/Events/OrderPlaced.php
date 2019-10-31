@@ -45,37 +45,32 @@
 //  ---------------------------------------------------------------------------------
 //
 
-namespace Ecjia\App\Push\Models;
+namespace Ecjia\App\Push\Events;
 
-use Royalcms\Component\Database\Eloquent\Model;
+use Ecjia\App\Push\EventAbstract;
 
-class PushEventModel extends Model
+class OrderPlaced extends EventAbstract
 {
-    protected $table = 'notification_events';
+    protected $code = 'order_placed';
+
+    protected $template = '有客户下单啦！快去看看吧！订单编号：${order_sn}，收货人：${consignee}，联系电话：${telephone}，订单金额：${order_amount}。';
+
+    protected $sound = 'new_order.mp3';
     
+    protected $mutableContent = 1;
     
-    /**
-     * 限制查询只包括消息模板。
-     *
-     * @return \Royalcms\Component\Database\Eloquent\Builder
-     */
-    public function scopeSms($query)
+    public function __construct()
     {
-        return $query->where('channel_type', 'push');
+    	$this->name = __('客户下单', 'push');
+    
+    	$this->description = __('当客户下单时推送消息告知商家', 'push');
+    
+    	$this->available_values = [
+	    	'order_sn'		=> __('订单编号', 'push'),
+	    	'consignee' 	=> __('收货人', 'push'),
+	    	'telephone'  	=> __('联系方式', 'push'),
+	    	'order_amount'  => __('订单金额', 'push'),
+	    	'service_phone' => __('客服电话', 'push')
+    	];
     }
-    
-    /**
-     * 获取模板数据
-     */
-    public function getEventById($id)
-    {
-        return $this->sms()->where('id', $id)->first();
-    }
-    
-    public function getEventByCode($code)
-    {
-        return $this->sms()->where('event_code', $code)->first();
-    }    
-    
-    
 }

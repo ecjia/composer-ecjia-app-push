@@ -49,33 +49,43 @@ namespace Ecjia\App\Push\Models;
 
 use Royalcms\Component\Database\Eloquent\Model;
 
-class PushEventModel extends Model
+class PushMessageModel extends Model
 {
-    protected $table = 'notification_events';
+    protected $table = 'push_message';
     
+    protected $primaryKey = 'message_id';
     
     /**
-     * 限制查询只包括消息模板。
+     * 可以被批量赋值的属性。
      *
-     * @return \Royalcms\Component\Database\Eloquent\Builder
+     * @var array
      */
-    public function scopeSms($query)
-    {
-        return $query->where('channel_type', 'push');
-    }
+    protected $fillable = [
+        'device_code',
+        'device_token',
+        'device_client',
+        'title',
+        'content',
+        'content_params',
+        'add_time',
+        'push_time',
+        'push_count',
+        'template_id',
+        'in_status',
+        'extradata',
+        'priority',
+        'last_error_message',
+        'msgid',
+        'channel_code',
+    ];
+    
     
     /**
-     * 获取模板数据
+     * 该模型是否被自动维护时间戳
+     *
+     * @var bool
      */
-    public function getEventById($id)
-    {
-        return $this->sms()->where('id', $id)->first();
-    }
-    
-    public function getEventByCode($code)
-    {
-        return $this->sms()->where('event_code', $code)->first();
-    }    
+    public $timestamps = false;
     
     
 }

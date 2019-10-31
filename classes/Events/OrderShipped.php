@@ -45,37 +45,27 @@
 //  ---------------------------------------------------------------------------------
 //
 
-namespace Ecjia\App\Push\Models;
+namespace Ecjia\App\Push\Events;
 
-use Royalcms\Component\Database\Eloquent\Model;
+use Ecjia\App\Push\EventAbstract;
 
-class PushEventModel extends Model
+class OrderShipped extends EventAbstract
 {
-    protected $table = 'notification_events';
+    protected $code = 'order_shipped';
     
+    protected $template = '尊敬的${user_name}用户，您的订单${order_sn}已发货，收货人${consignee}，请您及时查收。';
     
-    /**
-     * 限制查询只包括消息模板。
-     *
-     * @return \Royalcms\Component\Database\Eloquent\Builder
-     */
-    public function scopeSms($query)
+    public function __construct()
     {
-        return $query->where('channel_type', 'push');
+    	$this->name = __('商家发货', 'push');
+    
+    	$this->description = __('当商家发货时是推送消息告知用户', 'push');
+    
+    	$this->available_values = [
+	    	'user_name'    => __('会员名称', 'push'),
+	    	'order_sn'     => __('订单编号', 'push'),
+	    	'consignee'    => __('收货人', 'push'),
+	    	'service_phone'=> __('客服电话', 'push')
+    	];
     }
-    
-    /**
-     * 获取模板数据
-     */
-    public function getEventById($id)
-    {
-        return $this->sms()->where('id', $id)->first();
-    }
-    
-    public function getEventByCode($code)
-    {
-        return $this->sms()->where('event_code', $code)->first();
-    }    
-    
-    
 }

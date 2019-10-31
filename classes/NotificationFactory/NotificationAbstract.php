@@ -44,38 +44,183 @@
 //
 //  ---------------------------------------------------------------------------------
 //
+namespace Ecjia\App\Push;
 
-namespace Ecjia\App\Push\Models;
+use ecjia;
 
-use Royalcms\Component\Database\Eloquent\Model;
-
-class PushEventModel extends Model
+/**
+ * 消息推送通知管理类
+ * @author royalwang
+ */
+abstract class NotificationAbstract 
 {
-    protected $table = 'notification_events';
+    protected $code;
     
-    
-    /**
-     * 限制查询只包括消息模板。
-     *
-     * @return \Royalcms\Component\Database\Eloquent\Builder
-     */
-    public function scopeSms($query)
-    {
-        return $query->where('channel_type', 'push');
-    }
-    
-    /**
-     * 获取模板数据
-     */
-    public function getEventById($id)
-    {
-        return $this->sms()->where('id', $id)->first();
-    }
-    
-    public function getEventByCode($code)
-    {
-        return $this->sms()->where('event_code', $code)->first();
-    }    
-    
-    
+	protected $appKey; 
+	protected $appMasterSecret;
+	protected $timestamp;
+	protected $validation_token;
+	
+	protected $debug            = true;
+	
+	protected $push_content;
+	protected $push_description;
+	protected $custom_fields    = array();
+	protected $device_tokens    = array();
+	
+	protected $sound;
+	protected $badge;
+	protected $mutableContent;
+
+	public function __construct() 
+	{
+		$this->timestamp = strval(time());
+	}
+	
+	
+	public function setAppKey($key)
+	{
+	    $this->appKey = $key;
+	    
+	    return $this;
+	}
+	
+	public function getAppKey()
+	{
+	    return $this->appKey;
+	}
+	
+	
+	public function setAppSecret($secret)
+	{
+	    $this->appMasterSecret = $secret;
+	    
+	    return $this;
+	}
+	
+	public function getAppSecret()
+	{
+	    return $this->appMasterSecret;
+	}
+	
+	public function setDebug($debug)
+	{
+	    $this->debug = $debug;
+	    
+	    return $this;
+	}
+	
+	public function getDebug()
+	{
+	    return $this->debug;
+	}
+	
+	/**
+	 * 获取客户端标识符
+	 */
+	public function getCode()
+	{
+	    return $this->code;
+	}
+	
+	/**
+	 * 添加内容
+	 * @param string $content
+	 */
+	public function addContent($description, $content) {
+	    $this->push_description = $description;
+	    $this->push_content = $content;
+	    return $this;
+	}
+	
+	/**
+	 * 添加自定义字段
+	 * @param array $field
+	 */
+	public function addField(array $field) {
+	    $this->custom_fields = $field;
+	    return $this;
+	}
+	
+	public function addDeviceToken($device_token) {
+	    if (is_string($device_token)) {
+	        $this->device_tokens[] = $device_token;
+	    } elseif (is_array($device_token)) {
+	        $this->device_tokens = array_merge($this->device_tokens, $device_token);
+	    }
+	    
+	    return $this;
+	}
+	
+	
+	public function setSound($sound)
+	{
+	    $this->sound = $sound;
+	    
+	    return $this;
+	}
+	
+	
+	public function getSound()
+	{
+	    return $this->sound;
+	}
+	
+	
+	public function setBadge($badge)
+	{
+	    $this->badge = $badge;
+	    
+	    return $this;
+	}
+	
+	
+	public function getBadge()
+	{
+	    return $this->badge;
+	}
+	
+	public function setMutableContent($mutable)
+	{
+	    $this->mutableContent = $mutable;
+	
+	    return $this;
+	}
+	
+	
+	public function getMutableContent()
+	{
+	    return $this->mutableContent;
+	}
+
+	/**
+	 * 发送广播消息
+	 */
+	abstract public function sendBroadcast();
+
+
+	/**
+	 * 发送单播消息
+	 */
+	abstract public function sendUnicast();
+
+	/**
+	 * 发送文件广播
+	 */
+	abstract public function sendFilecast();
+	
+
+	/**
+	 * 发送群组广播
+	 */
+	abstract public function sendGroupcast();
+	
+
+	/**
+	 * 发送消息自定义接受范围
+	 */
+	abstract public function sendCustomizedcast();
+
 }
+
+// end

@@ -45,37 +45,86 @@
 //  ---------------------------------------------------------------------------------
 //
 
-namespace Ecjia\App\Push\Models;
+namespace Ecjia\App\Push;
 
-use Royalcms\Component\Database\Eloquent\Model;
-
-class PushEventModel extends Model
+abstract class EventAbstract
 {
-    protected $table = 'notification_events';
+    
+    protected $code;
+    
+    protected $name;
+    
+    protected $description;
+    
+    protected $template;
+    
+    protected $available_values = [];
+    
+    protected $sound = 'chime';
+    
+    protected $mutableContent = 0;
     
     
-    /**
-     * 限制查询只包括消息模板。
-     *
-     * @return \Royalcms\Component\Database\Eloquent\Builder
-     */
-    public function scopeSms($query)
+    public function getCode()
     {
-        return $query->where('channel_type', 'push');
+        return $this->code;
     }
     
-    /**
-     * 获取模板数据
-     */
-    public function getEventById($id)
+    public function getName()
     {
-        return $this->sms()->where('id', $id)->first();
+        return $this->name;
     }
     
-    public function getEventByCode($code)
+    public function getDescription()
     {
-        return $this->sms()->where('event_code', $code)->first();
-    }    
+        return $this->description;
+    }
     
+    public function getTemplate()
+    {
+        return $this->template;
+    }
+    
+    public function getAvailableValues()
+    {
+        return $this->available_values;
+    }
+    
+    public function getValueHit()
+    {
+        $str = '';
+        foreach ($this->available_values as $key => $value) {
+            $str .= $key . '(' . $value . '), ';
+        }
+        
+        return rtrim($str, ', ');
+    }
+    
+    public function hasEnabled()
+    {
+        $model = new \Ecjia\App\Push\Models\PushEventModel();
+        
+        $event = $model->getEventByCode($this->code);
+        if ($event->status == 'open') 
+        {
+            return true;
+        }
+        else 
+        {
+            return false;
+        }
+    }
+    
+    
+    public function getSound()
+    {
+        return $this->sound;
+    }
+    
+    
+    public function getMutableContent()
+    {
+        return $this->mutableContent;
+    }
     
 }

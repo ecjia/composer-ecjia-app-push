@@ -49,9 +49,9 @@ namespace Ecjia\App\Push\Models;
 
 use Royalcms\Component\Database\Eloquent\Model;
 
-class PushEventModel extends Model
+class PushTemplateModel extends Model
 {
-    protected $table = 'notification_events';
+    protected $table = 'notification_templates';
     
     
     /**
@@ -65,17 +65,61 @@ class PushEventModel extends Model
     }
     
     /**
+     * 限制查询只包括某一插件的消息模板。
+     *
+     * @return \Royalcms\Component\Database\Eloquent\Builder
+     */
+    public function scopePlugin($query, $code)
+    {
+        return $query->where('channel_code', $code);
+    }
+    
+    /**
      * 获取模板数据
      */
-    public function getEventById($id)
+    public function getTemplateById($id)
     {
         return $this->sms()->where('id', $id)->first();
     }
     
-    public function getEventByCode($code)
+    public function getTemplateByCode($code, $plugin)
     {
-        return $this->sms()->where('event_code', $code)->first();
-    }    
+        return $this->sms()->plugin($plugin)->where('template_code', $code)->first();
+    }
+    
+    /**
+     * 获取模板内容
+     * @param string $code
+     * @return array template_id, template_content
+     */
+    public function getTemplateContentByCode($code, $plugin)
+    {
+        $data = $this->getTemplateByCode($code, $plugin);
+        
+        if ($data) {
+            return array($data['template_content']);
+        }
+        
+        return false;
+    }
+    
+    
+    /**
+     * 获取模板ID
+     * @param string $code
+     * @return array template_id, template_content
+     */
+    public function getTemplateIdByCode($code)
+    {
+        $data = $this->getTemplateByCode($code);
+    
+        if ($data) {
+            return array($data['template_id']);
+        }
+    
+        return false;
+    }
+    
     
     
 }

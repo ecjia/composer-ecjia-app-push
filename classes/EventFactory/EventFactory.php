@@ -45,37 +45,76 @@
 //  ---------------------------------------------------------------------------------
 //
 
-namespace Ecjia\App\Push\Models;
+namespace Ecjia\App\Push;
 
-use Royalcms\Component\Database\Eloquent\Model;
+use RC_Hook;
+use RC_Cache;
+use InvalidArgumentException;
 
-class PushEventModel extends Model
+class EventFactory
 {
-    protected $table = 'notification_events';
+
+    protected static $factories;
     
-    
-    /**
-     * 限制查询只包括消息模板。
-     *
-     * @return \Royalcms\Component\Database\Eloquent\Builder
-     */
-    public function scopeSms($query)
+    public function __construct()
     {
-        return $query->where('channel_type', 'push');
+        self::$factories = $this->getFactories();
+    }
+
+    public function getFactories()
+    {
+        $cache_key = 'push_event_factories';
+        
+        $factories = RC_Cache::app_cache_get($cache_key, 'push');
+        
+        if (empty($factories)) {
+            
+            $dir = __DIR__ . '/Events';
+            
+            $events = royalcms('files')->files($dir);
+        
+            $factories = [];
+            
+            foreach ($events as $key => $value) {
+                $value = str_replace($dir . '/', '', $value);
+                $value = str_replace('.php', '', $value);
+                $className = __NAMESPACE__ . '\Events\\' . $value;
+                
+                $key = with(new $className)->getCode();
+                $factories[$key] = $className;
+            }
+
+            RC_Cache::app_cache_set($cache_key, $factories, 'push', 10080);
+        }
+
+        return RC_Hook::apply_filters('ecjia_push_event_filter', $factories);
     }
     
-    /**
-     * 获取模板数据
-     */
-    public function getEventById($id)
+    
+    public function getEvents()
     {
-        return $this->sms()->where('id', $id)->first();
+        $events = [];
+        
+        foreach (self::$factories as $key => $value) {
+            $events[$key] = new $value;
+        }
+
+        return $events;
     }
     
-    public function getEventByCode($code)
+    
+    public function event($code)
     {
-        return $this->sms()->where('event_code', $code)->first();
-    }    
+        if (!array_key_exists($code, self::$factories)) {
+            throw new InvalidArgumentException("Event '$code' is not supported.");
+        }
+    
+        $className = self::$factories[$code];
+    
+        return new $className();
+    }
+    
+    
     
     
 }

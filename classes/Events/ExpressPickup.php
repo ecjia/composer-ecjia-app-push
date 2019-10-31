@@ -45,37 +45,24 @@
 //  ---------------------------------------------------------------------------------
 //
 
-namespace Ecjia\App\Push\Models;
+namespace Ecjia\App\Push\Events;
 
-use Royalcms\Component\Database\Eloquent\Model;
+use Ecjia\App\Push\EventAbstract;
 
-class PushEventModel extends Model
+class ExpressPickup extends EventAbstract
 {
-    protected $table = 'notification_events';
-    
-    
-    /**
-     * 限制查询只包括消息模板。
-     *
-     * @return \Royalcms\Component\Database\Eloquent\Builder
-     */
-    public function scopeSms($query)
+    protected $code = 'express_pickup';
+
+    protected $template = '恭喜您已成功取得配送单号为：${express_sn}的配送货物。';
+
+    public function __construct()
     {
-        return $query->where('channel_type', 'push');
+    	$this->name = __('取货成功', 'push');
+    
+    	$this->description = __('通知用户取货成功', 'push');
+    
+    	$this->available_values = [
+    		'express_sn' => __('配送单号', 'push'),
+    	];
     }
-    
-    /**
-     * 获取模板数据
-     */
-    public function getEventById($id)
-    {
-        return $this->sms()->where('id', $id)->first();
-    }
-    
-    public function getEventByCode($code)
-    {
-        return $this->sms()->where('event_code', $code)->first();
-    }    
-    
-    
 }

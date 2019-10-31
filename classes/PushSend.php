@@ -44,38 +44,127 @@
 //
 //  ---------------------------------------------------------------------------------
 //
+namespace Ecjia\App\Push;
 
-namespace Ecjia\App\Push\Models;
-
-use Royalcms\Component\Database\Eloquent\Model;
-
-class PushEventModel extends Model
+class PushSend
 {
-    protected $table = 'notification_events';
-    
+    /**
+     * 推送内容对象
+     * @var PushContent
+     */
+    protected $pushContent;
     
     /**
-     * 限制查询只包括消息模板。
-     *
-     * @return \Royalcms\Component\Database\Eloquent\Builder
+     * 推送的设备token
+     * @var array
      */
-    public function scopeSms($query)
-    {
-        return $query->where('channel_type', 'push');
-    }
+    protected $deviceToken = array();
     
     /**
-     * 获取模板数据
+     * 推送的客户端类型
+     * @var string
      */
-    public function getEventById($id)
+    protected $client;
+    
+    protected $appKey;
+    protected $appSecret;
+    
+    
+    protected $customFields = array();
+    
+    
+    protected $debug = false;
+    
+    
+	public function __construct($key, $secret, $debug = false) {
+		$this->appKey = $key;
+		$this->appSecret = $secret;
+		$this->debug = $debug;
+	}
+    
+    
+    public function setPushContent(PushContent $content)
     {
-        return $this->sms()->where('id', $id)->first();
+        $this->pushContent = $content;
+        
+        return $this;
     }
     
-    public function getEventByCode($code)
-    {
-        return $this->sms()->where('event_code', $code)->first();
-    }    
     
+    public function getPushContent()
+    {
+        return $this->pushContent;
+    }
+    
+    public function setDeviceToken($deviceToken)
+    {
+        $this->deviceToken = $deviceToken;
+        
+        return $this;
+    }
+    
+    public function getDeviceToken()
+    {
+        return $this->deviceToken;
+    }
+    
+    
+    public function setClient($client)
+    {
+        $this->client = $client;
+        
+        return $this;
+    }
+    
+    public function getClient()
+    {
+        return $this->client;
+    }
+    
+    
+    public function setCustomFields(array $fields) 
+    {
+        $this->customFields = $fields;
+        
+        return $this;
+    }
+    
+    public function getCustomFields()
+    {
+        return $this->customFields;
+    }
+    
+    public function send()
+    {     
+        $notification = (new NotificationFactory())->notification($this->client);
+
+        $notification->setAppKey($this->appKey);
+        $notification->setAppSecret($this->appSecret);
+        $notification->setDebug($this->debug);
+        $notification->addContent($this->pushContent->getSubject(), $this->pushContent->getContent());
+        $notification->addDeviceToken($this->deviceToken);
+        $notification->addField($this->customFields);
+        $notification->setSound($this->pushContent->getSound());
+        $notification->setBadge($this->pushContent->getBadge());
+        $notification->setMutableContent($this->pushContent->getMutableContent());
+
+        return $notification->sendUnicast();
+    }
+    
+    
+    public function broadcastSend()
+    {
+        $notification = (new NotificationFactory())->notification($this->client);
+        
+        $notification->setAppKey($this->appKey);
+        $notification->setAppSecret($this->appSecret);
+        $notification->setDebug($this->debug);
+        $notification->addContent($this->pushContent->getSubject(), $this->pushContent->getContent());
+        $notification->addField($this->customFields);
+        
+        return $notification->sendBroadcast();
+    }
     
 }
+
+// end

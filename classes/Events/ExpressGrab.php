@@ -45,37 +45,29 @@
 //  ---------------------------------------------------------------------------------
 //
 
-namespace Ecjia\App\Push\Models;
+namespace Ecjia\App\Push\Events;
 
-use Royalcms\Component\Database\Eloquent\Model;
+use Ecjia\App\Push\EventAbstract;
 
-class PushEventModel extends Model
+class ExpressGrab extends EventAbstract
 {
-    protected $table = 'notification_events';
+    protected $code = 'express_grab';
+
+    protected $template = '恭喜您已抢单成功，配送单号为：${express_sn}。如有问题请拨打客服电话：${service_phone}。';
+
+    protected $sound = 'new_order.mp3';
     
+    protected $mutableContent = 1;
     
-    /**
-     * 限制查询只包括消息模板。
-     *
-     * @return \Royalcms\Component\Database\Eloquent\Builder
-     */
-    public function scopeSms($query)
+    public function __construct()
     {
-        return $query->where('channel_type', 'push');
+    	$this->name = __('抢单成功', 'push');
+    
+    	$this->description = __('通知用户抢单成功', 'push');
+    
+    	$this->available_values = [
+	    	'express_sn' 	=> __('配送单号', 'push'),
+	    	'service_phone' => __('客服电话', 'push'),
+    	];
     }
-    
-    /**
-     * 获取模板数据
-     */
-    public function getEventById($id)
-    {
-        return $this->sms()->where('id', $id)->first();
-    }
-    
-    public function getEventByCode($code)
-    {
-        return $this->sms()->where('event_code', $code)->first();
-    }    
-    
-    
 }

@@ -45,37 +45,28 @@
 //  ---------------------------------------------------------------------------------
 //
 
-namespace Ecjia\App\Push\Models;
+namespace Ecjia\App\Push\Events;
 
-use Royalcms\Component\Database\Eloquent\Model;
+use Ecjia\App\Push\EventAbstract;
 
-class PushEventModel extends Model
+class ExpressSystemAssign extends EventAbstract
 {
-    protected $table = 'notification_events';
+    protected $code = 'express_system_assign';
+
+    protected $template = '有单啦！系统已分配配送单${express_sn}到您账户，赶快行动起来吧。';
+
+    protected $sound = 'new_order.mp3';
     
+    protected $mutableContent = 1;
     
-    /**
-     * 限制查询只包括消息模板。
-     *
-     * @return \Royalcms\Component\Database\Eloquent\Builder
-     */
-    public function scopeSms($query)
+    public function __construct()
     {
-        return $query->where('channel_type', 'push');
+    	$this->name = __('系统派单', 'push');
+    
+    	$this->description = __('系统分配配送单通知', 'push');
+    
+    	$this->available_values = [
+    		'express_sn' => __('配送单号', 'push'),
+    	];
     }
-    
-    /**
-     * 获取模板数据
-     */
-    public function getEventById($id)
-    {
-        return $this->sms()->where('id', $id)->first();
-    }
-    
-    public function getEventByCode($code)
-    {
-        return $this->sms()->where('event_code', $code)->first();
-    }    
-    
-    
 }
