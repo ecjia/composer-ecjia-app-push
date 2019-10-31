@@ -11,7 +11,7 @@ class push_push_template_api extends Component_Event_Api {
      * @param $options[array] 
      *          $options['tpl_name'] 模板代码
      *
-     * @return array
+     * @return array|bool
      */
 	public function call(&$options) {	
 	    if (is_string($options)) {
