@@ -46,12 +46,12 @@
 //
 namespace Ecjia\App\Push\Clients;
 
-use Ecjia\App\Push\NotificationAbstract;
-use Ecjia\App\Push\Umeng\Notification\IOS\IOSBroadcast;
-use Ecjia\App\Push\Umeng\Notification\IOS\IOSUnicast;
-use Ecjia\App\Push\Umeng\Notification\IOS\IOSFilecast;
-use Ecjia\App\Push\Umeng\Notification\IOS\IOSGroupcast;
-use Ecjia\App\Push\Umeng\Notification\IOS\IOSCustomizedcast;
+use Ecjia\App\Push\NotificationFactory\NotificationAbstract;
+use Ecjia\Component\Umeng\Notification\IOS\IOSBroadcast;
+use Ecjia\Component\Umeng\Notification\IOS\IOSUnicast;
+use Ecjia\Component\Umeng\Notification\IOS\IOSFilecast;
+use Ecjia\Component\Umeng\Notification\IOS\IOSGroupcast;
+use Ecjia\Component\Umeng\Notification\IOS\IOSCustomizedcast;
 use Exception;
 use ecjia_error;
 
@@ -67,7 +67,8 @@ class IOSNotification extends NotificationAbstract
 	/**
 	 * 发送iOS广播消息
 	 */
-	public function sendBroadcast() {
+	public function sendBroadcast()
+    {
 		try {
 			$brocast = new IOSBroadcast();
 			$brocast->setAppMasterSecret($this->appMasterSecret);
@@ -99,7 +100,8 @@ class IOSNotification extends NotificationAbstract
 	/**
 	 * 发送iOS单播消息
 	 */
-	public function sendUnicast() {
+	public function sendUnicast()
+    {
 		try {
 			$unicast = new IOSUnicast();
 			$unicast->setAppMasterSecret($this->appMasterSecret);
@@ -151,7 +153,8 @@ class IOSNotification extends NotificationAbstract
 	/**
 	 * 发送iOS文件广播
 	 */
-	public function sendFilecast() {
+	public function sendFilecast()
+    {
 		try {
 			$filecast = new IOSFilecast();
 			$filecast->setAppMasterSecret($this->appMasterSecret);
@@ -177,7 +180,8 @@ class IOSNotification extends NotificationAbstract
 	/**
 	 * 发送iOS群组广播
 	 */
-	public function sendGroupcast() {
+	public function sendGroupcast()
+    {
 		try {
 			/* 
 		 	 *  Construct the filter condition:
@@ -221,7 +225,8 @@ class IOSNotification extends NotificationAbstract
 	/**
 	 * 发送iOS消息自定义接受范围
 	 */
-	public function sendCustomizedcast() {
+	public function sendCustomizedcast()
+    {
 		try {
 			$customizedcast = new IOSCustomizedcast();
 			$customizedcast->setAppMasterSecret($this->appMasterSecret);

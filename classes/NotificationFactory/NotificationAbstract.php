@@ -44,9 +44,7 @@
 //
 //  ---------------------------------------------------------------------------------
 //
-namespace Ecjia\App\Push;
-
-use ecjia;
+namespace Ecjia\App\Push\NotificationFactory;
 
 /**
  * 消息推送通知管理类

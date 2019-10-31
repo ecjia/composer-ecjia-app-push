@@ -46,12 +46,12 @@
 //
 namespace Ecjia\App\Push\Clients;
 
-use Ecjia\App\Push\NotificationAbstract;
-use Ecjia\App\Push\Umeng\Notification\Android\AndroidBroadcast;
-use Ecjia\App\Push\Umeng\Notification\Android\AndroidUnicast;
-use Ecjia\App\Push\Umeng\Notification\Android\AndroidFilecast;
-use Ecjia\App\Push\Umeng\Notification\Android\AndroidGroupcast;
-use Ecjia\App\Push\Umeng\Notification\Android\AndroidCustomizedcast;
+use Ecjia\App\Push\NotificationFactory\NotificationAbstract;
+use Ecjia\Component\Umeng\Notification\Android\AndroidBroadcast;
+use Ecjia\Component\Umeng\Notification\Android\AndroidUnicast;
+use Ecjia\Component\Umeng\Notification\Android\AndroidFilecast;
+use Ecjia\Component\Umeng\Notification\Android\AndroidGroupcast;
+use Ecjia\Component\Umeng\Notification\Android\AndroidCustomizedcast;
 use Exception;
 use ecjia_error;
 use ecjia;
@@ -68,7 +68,8 @@ class AndroidNotification extends NotificationAbstract
 	/**
 	 * 发送android广播消息
 	 */
-	public function sendBroadcast() {
+	public function sendBroadcast()
+    {
 		try {
 		    if (!$this->push_content) {
 		        throw new Exception(__('推送消息的内容不能为空', 'push'));
@@ -107,7 +108,8 @@ class AndroidNotification extends NotificationAbstract
 	/**
 	 * 发送android单播消息
 	 */
-	public function sendUnicast() {
+	public function sendUnicast()
+    {
 		try {
 			$unicast = new AndroidUnicast();
 			$unicast->setAppMasterSecret($this->appMasterSecret);
@@ -155,7 +157,8 @@ class AndroidNotification extends NotificationAbstract
 	/**
 	 * 发送android文件广播
 	 */
-	public function sendFilecast() {
+	public function sendFilecast()
+    {
 		try {
 			$filecast = new AndroidFilecast();
 			$filecast->setAppMasterSecret($this->appMasterSecret);
@@ -179,7 +182,8 @@ class AndroidNotification extends NotificationAbstract
 	/**
 	 * 发送android群组广播
 	 */
-	public function sendGroupcast() {
+	public function sendGroupcast()
+    {
 		try {
 			/* 
 		 	 *  Construct the filter condition:
@@ -229,7 +233,8 @@ class AndroidNotification extends NotificationAbstract
 	/**
 	 * 发送android消息自定义接受范围
 	 */
-	public function sendCustomizedcast() {
+	public function sendCustomizedcast()
+    {
 		try {
 			$customizedcast = new AndroidCustomizedcast();
 			$customizedcast->setAppMasterSecret($this->appMasterSecret);
