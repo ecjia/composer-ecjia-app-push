@@ -68,8 +68,6 @@ class AdminEventsController extends AdminBase
     {
 		parent::__construct();
 		
-		\Ecjia\App\Push\Helper::assign_adminlog_content();
-		
 		RC_Script::enqueue_script('tinymce');
 		RC_Style::enqueue_style('chosen');
 		RC_Style::enqueue_style('uniform-aristo');
@@ -87,10 +85,10 @@ class AdminEventsController extends AdminBase
 		RC_Script::enqueue_script('bootstrap-placeholder');
 		RC_Script::enqueue_script('jquery-dataTables-bootstrap');
 		
-		RC_Script::enqueue_script('push_events', RC_App::apps_url('statics/js/push_events.js', __FILE__), array(), false, false);
+		RC_Script::enqueue_script('push_events', RC_App::apps_url('statics/js/push_events.js', $this->__FILE__), array(), false, false);
 		RC_Script::localize_script('push_events', 'js_lang_events', config('app-push::jslang.push_events_page'));
 		
-		RC_Script::enqueue_script('push_template', RC_App::apps_url('statics/js/push_template.js', __FILE__), array(), false, false);
+		RC_Script::enqueue_script('push_template', RC_App::apps_url('statics/js/push_template.js', $this->__FILE__), array(), false, false);
 		RC_Script::localize_script('push_template', 'js_lang_template', config('app-push::jslang.push_template_page'));
 	}
 	

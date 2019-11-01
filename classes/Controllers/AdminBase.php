@@ -4,6 +4,7 @@
 namespace Ecjia\App\Push\Controllers;
 
 
+use Ecjia\App\Client\Helper;
 use Ecjia\System\BaseController\EcjiaAdminController;
 
 class AdminBase extends EcjiaAdminController
@@ -15,6 +16,8 @@ class AdminBase extends EcjiaAdminController
         parent::__construct();
 
         $this->__FILE__ = dirname(dirname(__FILE__));
+
+        Helper::assign_adminlog_content();
 
     }
 }

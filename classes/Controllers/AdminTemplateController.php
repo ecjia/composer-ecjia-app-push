@@ -88,10 +88,10 @@ class AdminTemplateController extends AdminBase
 		RC_Script::enqueue_script('bootstrap-placeholder');
 		RC_Script::enqueue_script('jquery-dataTables-bootstrap');
 
-		RC_Script::enqueue_script('push_template', RC_App::apps_url('statics/js/push_template.js', __FILE__), array(), false, false);
+		RC_Script::enqueue_script('push_template', RC_App::apps_url('statics/js/push_template.js', $this->__FILE__), array(), false, false);
 		RC_Script::localize_script('push_template', 'js_lang_template', config('app-push::jslang.push_template_page'));
 
-		RC_Script::enqueue_script('push_events', RC_App::apps_url('statics/js/push_events.js', __FILE__), array(), false, false);
+		RC_Script::enqueue_script('push_events', RC_App::apps_url('statics/js/push_events.js', $this->__FILE__), array(), false, false);
 		RC_Script::localize_script('push_events', 'js_lang_events', config('app-push::jslang.push_events_page'));
 	
 		ecjia_screen::get_current_screen()->add_nav_here(new admin_nav_here(__('消息模板', 'push'), RC_Uri::url('push/admin_template/init')));
