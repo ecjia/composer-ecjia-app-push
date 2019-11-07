@@ -43,8 +43,7 @@ class push_push_send_api extends Component_Event_Api {
 	        $push_order_placed_apps = ecjia::config('push_order_placed_apps');
 	        $apps = explode(',', $push_order_placed_apps);
 	        foreach ($apps as $appid) {
-				$db_mobile_manage = RC_Loader::load_app_model('mobile_manage_model', 'mobile');
-				$device_code = $db_mobile_manage->where(array('app_id' => $appid))->get_field('device_code');
+				$device_code = RC_DB::connection('ecjia')->table('mobile_manage')->where('app_id', $appid)->value('device_code');
 	        	if (!empty($options['admin_id'])) {
 	        		$device_info = RC_Api::api('mobile', 'device_info', array('admin_id' => $options['admin_id'], 'device_code' => $device_code));
 	        	} elseif (!empty($options['user_id'])) {

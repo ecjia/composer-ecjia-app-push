@@ -7,7 +7,7 @@ defined('IN_ECJIA') or exit('No permission resources.');
 
 class admin_config extends ecjia_admin {
 
-	private $db_mobile_manage;
+// 	private $db_mobile_manage;
 	
 	public function __construct() {
 		parent::__construct();
@@ -15,7 +15,7 @@ class admin_config extends ecjia_admin {
 		RC_Loader::load_app_func('global');
 		assign_adminlog_content();
 	
-		$this->db_mobile_manage = RC_Loader::load_app_model('mobile_manage_model', 'mobile');
+// 		$this->db_mobile_manage = RC_Loader::load_app_model('mobile_manage_model', 'mobile');
 		
 		RC_Script::enqueue_script('jquery-validate');
 		RC_Script::enqueue_script('jquery-form');
@@ -41,13 +41,13 @@ class admin_config extends ecjia_admin {
     	$this->assign('config_appname', ecjia::config('app_name'));//应用名称
     	$this->assign('config_apppush', ecjia::config('app_push_development'));
     	
-    	$mobile_manage = $this->db_mobile_manage->select();
+    	$mobile_manage = RC_DB::connection('ecjia')->table('mobile_manage')->get();
     	
     	
     	
     	$push_order_placed_apps = ecjia::config('push_order_placed_apps');
     	$apps_id = explode(',', $push_order_placed_apps);
-    	$apps_group = $this->db_mobile_manage->where(array('app_id' => $apps_id))->select();
+    	$apps_group = RC_DB::connection('ecjia')->table('mobile_manage')->where('app_id', $apps_id)->get();
     	
     	$this->assign('mobile_manage',     	$mobile_manage);
     	$this->assign('apps_group',     	$apps_group);

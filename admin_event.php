@@ -10,7 +10,7 @@ class admin_event extends ecjia_admin {
 	private $db_push_event;
 	private $dbview_push_event;
 	private $db_mail;
-	private $db_mobile_manage;
+// 	private $db_mobile_manage;
 	
 	public function __construct() {
 		parent::__construct();
@@ -21,7 +21,7 @@ class admin_event extends ecjia_admin {
 		$this->db_push_event = RC_Loader::load_app_model('push_event_model');
 		$this->dbview_push_event = RC_Loader::load_app_model('push_event_viewmodel');
 		$this->db_mail = RC_Loader::load_app_model('mail_templates_model');
-		$this->db_mobile_manage = RC_Loader::load_app_model('mobile_manage_model', 'mobile');
+// 		$this->db_mobile_manage = RC_Loader::load_app_model('mobile_manage_model', 'mobile');
 		
 		RC_Script::enqueue_script('jquery-uniform');
 		RC_Script::enqueue_script('jquery-chosen');
@@ -54,11 +54,11 @@ class admin_event extends ecjia_admin {
 		$count = $this->db_push_event->group(array('event_code'))->count();
 		$page = new ecjia_page ($count, 10, 5);
 		
-		$push_event = $this->dbview_push_event->field(array('pe.*', 'app_name', 'template_subject'))->join(array('mobile_manage', 'mail_templates'))->limit($page->limit())->group(array('event_code'))->select();
+		$push_event = $this->db_push_event->limit($page->limit())->group(array('event_code'))->select();
 		
 		if (!empty($push_event)) {
 			foreach ($push_event as $key => $val) {
-				$app_name = $this->dbview_push_event->join(array('mobile_manage'))->where(array('event_code' => $val['event_code']))->get_field('app_name', true);
+// 				$app_name = $this->dbview_push_event->join(array('mobile_manage'))->where(array('event_code' => $val['event_code']))->get_field('app_name', true);
 				$push_event[$key]['appname'] = $app_name;
 				$push_event[$key]['create_time'] = RC_Time::local_date(ecjia::config('date_format'), $val['create_time']);
 			}
@@ -83,7 +83,7 @@ class admin_event extends ecjia_admin {
 		$template_data = $this->db_mail->field('template_id, template_subject')->where(array('type' => 'push'))->select();
 		
 		/* 获取客户端应用*/
-		$mobile_manage = $this->db_mobile_manage->where(array('status' => 1))->select();
+		$mobile_manage = RC_DB::connection('ecjia')->table('mobile_manage')->where('status', 1)->get();
 		
 		$this->assign('template_data', $template_data);
 		$this->assign('mobile_manage', $mobile_manage);
@@ -174,16 +174,16 @@ class admin_event extends ecjia_admin {
 		$this->admin_priv('push_event_update', ecjia::MSGTYPE_JSON);
 		$push_event = $this->db_push_event->find(array('event_code' => trim($_GET['code'])));
 
-		$push_event_group = $this->dbview_push_event
-							->field(array('pe.*', 'app_name', 'template_subject'))
-							->join(array('mobile_manage', 'mail_templates'))
-							->where(array('type' => 'push', 'event_code' => $push_event['event_code']))
+		$push_event_group = $this->db_push_event
+// 							->field(array('pe.*', 'app_name', 'template_subject'))
+// 							->join(array('mobile_manage', 'mail_templates'))
+							->where(array('event_code' => $push_event['event_code']))
 							->select();
 		/* 获取推送模板*/
 		$template_data = $this->db_mail->field('template_id, template_subject')->where(array('type' => 'push'))->select();
 		
 		/* 获取客户端应用*/
-		$mobile_manage = $this->db_mobile_manage->where(array('status' => 1))->select();
+		$mobile_manage = RC_DB::connection('ecjia')->table('mobile_manage')->where('status', 1)->get();
 		
 		$this->assign('push_event', $push_event);
 		$this->assign('push_event_group', $push_event_group);
