@@ -234,7 +234,7 @@ class AdminController extends AdminBase
 			}
 			if(!empty($user_id)) {
 				$result = \Ecjia\App\Push\PushManager::make()
-				->setPushUser(new \Ecjia\App\Mobile\User($target, $user_id))
+				->setPushUser(new \Ecjia\App\Client\User($target, $user_id))
 				->setPushContent($push_content)
 				->userSend($field, $priority);
 			} else {
@@ -315,7 +315,7 @@ class AdminController extends AdminBase
 		
 		
 		//获取打开动作列表
-		$client_info = with(new \Ecjia\App\Mobile\ApplicationFactory)->client($push['device_code']);
+		$client_info = with(new \Ecjia\App\Client\ApplicationFactory)->client($push['device_code']);
 		$push_object = $client_info->getPlatform()->getOpenTypes();
 		$action_list = array();
 		foreach ($push_object as $k => $event) {
@@ -399,7 +399,7 @@ class AdminController extends AdminBase
 		}
 	
 		$count = $db_push_sendlist->count();
-		$page = new ecjia_page($count, 15, 6);
+		$page = new \ecjia_page($count, 15, 6);
 			
 		$row = $db_push_sendlist
 		->select('*')->orderby('push_time', 'desc')
@@ -407,10 +407,10 @@ class AdminController extends AdminBase
 		->skip($page->start_id-1)
 		->get();
 		
-		$device_list = with(new \Ecjia\App\Mobile\Models\MobileManageModel)->getAllDeviceCode();
+		$device_list = with(new \Ecjia\App\Client\Models\MobileManageModel)->getAllDeviceCode();
 		if (!empty($row)) {
 			foreach ($row AS $key => $val) {
-				$row[$key]['push_time'] = RC_Time::local_date(ecjia::config('time_format'), $val['push_time']);
+				$row[$key]['push_time'] = \RC_Time::local_date(ecjia::config('time_format'), $val['push_time']);
 				$device_info = array_get($device_list, $val['device_code']);
 				$row[$key]['app_name'] = $device_info['app_name'];
 			}
@@ -425,7 +425,7 @@ class AdminController extends AdminBase
     {
 		
         $platforms = (new \Ecjia\App\Client\ApplicationFactory())->getPlatformsByOption('config_push');
-
+        
         $platform_codes = array_keys($platforms);
 
         $clients = (new \Ecjia\App\Client\ApplicationFactory())->getClientsByPlatform($platform_codes);
