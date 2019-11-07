@@ -50,6 +50,20 @@ namespace Ecjia\App\Push\EventFactory;
 
 class EventFactory extends \Ecjia\Component\ComponentFactory\ComponentFactory
 {
+	
+	/**
+	 * ComponentFactory constructor.
+	 *
+	 * @param ComponentNamespace $component_namespace
+	 */
+	public function __construct(ComponentNamespace $component_namespace = null)
+	{
+		if (is_null($component_namespace)) {
+			$component_namespace = new ComponentNamespace();
+		}
+	
+		parent::__construct($component_namespace);
+	}
 
     /**
      * 缓存key
