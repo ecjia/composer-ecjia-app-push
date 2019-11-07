@@ -68,7 +68,7 @@ class AdminEventsController extends AdminBase
     {
 		parent::__construct();
 		
-		RC_Script::enqueue_script('tinymce');
+// 		RC_Script::enqueue_script('tinymce');
 		RC_Style::enqueue_style('chosen');
 		RC_Style::enqueue_style('uniform-aristo');
 		RC_Script::enqueue_script('jquery-chosen');
@@ -85,10 +85,10 @@ class AdminEventsController extends AdminBase
 		RC_Script::enqueue_script('bootstrap-placeholder');
 		RC_Script::enqueue_script('jquery-dataTables-bootstrap');
 		
-		RC_Script::enqueue_script('push_events', RC_App::apps_url('statics/js/push_events.js', $this->__FILE__), array(), false, false);
+		RC_Script::enqueue_script('push_events', RC_App::apps_url('statics/js/push_events.js', $this->__FILE__), array(), false, 1);
 		RC_Script::localize_script('push_events', 'js_lang_events', config('app-push::jslang.push_events_page'));
 		
-		RC_Script::enqueue_script('push_template', RC_App::apps_url('statics/js/push_template.js', $this->__FILE__), array(), false, false);
+		RC_Script::enqueue_script('push_template', RC_App::apps_url('statics/js/push_template.js', $this->__FILE__), array(), false, 1);
 		RC_Script::localize_script('push_template', 'js_lang_template', config('app-push::jslang.push_template_page'));
 	}
 	
@@ -147,7 +147,7 @@ class AdminEventsController extends AdminBase
 		$this->admin_priv('push_event_manage');
 		
 		$notification_events_list = RC_DB::table('notification_events')->where('channel_type', 'push')->lists('event_code');
-		$factory = new Ecjia\App\Push\EventFactory();
+		$factory = new \Ecjia\App\Push\EventFactory();
 		$events  = $factory->getEvents();
 		foreach ($events as $event) {
 			$arr[]  = $event->getCode();
@@ -201,8 +201,10 @@ class AdminEventsController extends AdminBase
 	
 		$template_code_list = array();
 		
-		$factory = new Ecjia\App\Push\EventFactory();
+		$factory = new \Ecjia\App\Push\EventFactory();
+		
 		$events = $factory->getEvents();
+		
 		foreach ($events as $k => $event) {
 			$template_code_list[$k]['code'] = $event->getCode();
 			$template_code_list[$k]['name'] = $event->getName();
