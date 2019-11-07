@@ -69,7 +69,6 @@ class AdminTemplateController extends AdminBase
     {
 		parent::__construct();
 		
-		\Ecjia\App\Push\Helper::assign_adminlog_content();
 		
 		RC_Script::enqueue_script('tinymce');
 		RC_Style::enqueue_style('chosen');
