@@ -15,6 +15,17 @@
     font: 900 60px/85px dashicons;
     top: 20%;
 }
+
+.push_list .choose {
+	width:130px; 
+}
+.tab-content {
+	overflow : visible;
+}
+
+.tabs-left > .nav-tabs {
+	margin-right : 0px;
+}
 /*===========================ECJIAUI By:will END===========================*/
 
 
