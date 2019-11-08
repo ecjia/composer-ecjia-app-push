@@ -51,6 +51,8 @@ use Royalcms\Component\Database\Eloquent\Model;
 
 class PushTemplateModel extends Model
 {
+	protected $connection = 'ecjia';
+	
     protected $table = 'notification_templates';
     
     

@@ -51,6 +51,8 @@ use Royalcms\Component\Database\Eloquent\Model;
 
 class PushMessageModel extends Model
 {
+	protected $connection = 'ecjia';
+	
     protected $table = 'push_message';
     
     protected $primaryKey = 'message_id';

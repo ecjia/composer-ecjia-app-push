@@ -51,6 +51,8 @@ use Royalcms\Component\Database\Eloquent\Model;
 
 class PushEventModel extends Model
 {
+	protected $connection = 'ecjia';
+	
     protected $table = 'notification_events';
     
     

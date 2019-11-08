@@ -8,7 +8,7 @@ defined('IN_ECJIA') or exit('No permission resources.');
 
 class push_send
 {
-    private $db;
+//     private $db;
     
     const CLIENT_ANDROID    = 'android';
     const CLIENT_IPHONE     = 'iphone';
@@ -41,7 +41,7 @@ class push_send
         $this->app_secret   = $app->getAppSecret();
         $this->client       = $app->getClient();
         
-        $this->db           = RC_Loader::load_app_model('push_message_model', 'push');
+//         $this->db           = RC_Loader::load_app_model('push_message_model', 'push');
     }
     
     /**
@@ -123,7 +123,7 @@ class push_send
             $data['in_status'] = 0;
             $result = new ecjia_error('push_send_error', $reponse_data['data']);
         }
-        $this->db->insert($data);
+        RC_DB::connection('ecjia')->table('push_message')->insert($data);
         
         return $result;
     }
@@ -186,7 +186,7 @@ class push_send
             $data['in_status'] = 0;
             $result = new ecjia_error('push_send_error', $reponse_data['data']);
         }
-        $this->db->insert($data);
+        RC_DB::connection('ecjia')->table('push_message')->insert($data);
     
         return $result;
     }
@@ -195,7 +195,7 @@ class push_send
      * 当短信发送失败时，可重新发送此条短信
      */
     public function resend($message_id) {
-        $row = $this->db->find(array('message_id' => $message_id));
+        $row = RC_DB::connection('ecjia')->table('push_message')->where('message_id', $message_id)->first();
         if (empty($row)) {
             return new ecjia_error('not_found_message_id', __('没发找到此消息记录'));
         }
@@ -247,7 +247,7 @@ class push_send
             $result = new ecjia_error('push_send_error', $reponse['data']);
         }
         
-        $this->db->where(array('message_id' => $message_id))->update($data);
+        RC_DB::connection('ecjia')->table('push_message')->where('message_id', $message_id)->update($data);
         
         return $result;
     }

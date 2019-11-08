@@ -361,9 +361,10 @@ class admin extends ecjia_admin {
 	 * 消息记录
 	 */
 	private function get_pushlist($appid) {
-		$dbpush = RC_Loader::load_app_model('push_message_model');
+// 		$dbpush = RC_Loader::load_app_model('push_message_model');
 		
-		$where = array();
+		$dbpush = RC_DB::connection('ecjia')->table('push_message');
+		//$where = array();
 		
 		$filter['keywords'] = empty($_GET['keywords']) ? '' : trim($_GET['keywords']);
 		$filter['appid'] = intval($appid);
@@ -371,15 +372,19 @@ class admin extends ecjia_admin {
 		$filter['in_status']='';
 		
 		if(!empty($status) || (isset($status) && trim($status)==='0' )){
-			$where['in_status']   =  $status;
+			//$where['in_status']   =  $status;
 			$filter['in_status']  =  $status;
+			$dbpush->where('in_status', $status);
 		}
 		
 		if ($filter['keywords']) {
-			$where[] = "title LIKE '%" . mysql_like_quote($filter['keywords']) . "%'";
+			//$where[] = "title LIKE '%" . mysql_like_quote($filter['keywords']) . "%'";
+			$keywords = $filter['keywords'];
+			$dbpush->where('title', 'like', '%' . mysql_like_quote($keywords) . '%');
 		}
 		
-		$where['app_id'] = $filter['appid'];
+		//$where['app_id'] = $filter['appid'];
+		$dbpush->where('app_id', $filter['appid']);
 
 // 		$field = "SUM(IF(app_id=".$filter['appid'].",1,0)) AS android";
 // 		$field = "SUM(IF(app_id=,1,0)) AS count";
@@ -390,11 +395,11 @@ class admin extends ecjia_admin {
 // 			'count'	=> empty($msg_count['count']) ? 0 : $msg_count['count'],
 // 		);
 		
-		$count = $dbpush->where($where)->count();
+		$count = $dbpush->count();
 		RC_Loader::load_sys_class('ecjia_page', false);
 		$page = new ecjia_page($count, 15, 6);
 		
-		$row = $dbpush->where($where)->order(array('add_time'=>'desc'))->limit($page->limit())->select();
+		$row = $dbpush->orderBy('add_time', 'desc')->take(10)->skip($page_row->start_id - 1)->get();
 		if (!empty($row)) {
 			foreach ($row AS $key => $val) {
 				$row[$key]['add_time'] = RC_Time::local_date(ecjia::config('time_format'), $val['add_time']);

@@ -306,7 +306,7 @@ class AdminController extends AdminBase
 		$this->assign('product_device_list', $product_device_list);
 		
 		$message_id = intval($_GET['message_id']);
-		$push = RC_DB::table('push_message')->where('message_id', $message_id)->first();
+		$push = RC_DB::connection('ecjia')->table('push_message')->where('message_id', $message_id)->first();
 	
 		$push['extradata'] = unserialize($push['extradata']);
 		$open_type = $push['extradata']['open_type'];
@@ -363,7 +363,7 @@ class AdminController extends AdminBase
 		$filter['keywords']   = $keywords;
 		$filter['errorval']   = empty($_GET['errorval']) ? 0 : intval($_GET['errorval']);
 			
-		$db_push_sendlist = RC_DB::table('push_message');
+		$db_push_sendlist = RC_DB::connection('ecjia')->table('push_message');
 			
 		if ($filter['keywords']) {
 			$db_push_sendlist->where(function($query) use ($keywords) {

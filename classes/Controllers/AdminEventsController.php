@@ -105,7 +105,7 @@ class AdminEventsController extends AdminBase
 		$this->assign('action_link', array('href' => RC_Uri::url('push/admin_template/init'), 'text' => __('消息模板列表', 'push')));
 	
 		$data = $this->template_code_list();
-		$database = RC_DB::table('notification_events')
+		$database = RC_DB::connection('ecjia')->table('notification_events')
 					->where('channel_type', 'push')
 					->select('id', 'event_code','status')
 					->get();
@@ -134,9 +134,9 @@ class AdminEventsController extends AdminBase
 				'status'	  => 'open',
 				'channel_type'=> 'push',
 			);
-			RC_DB::table('notification_events')->insertGetId($data);
+			RC_DB::connection('ecjia')->table('notification_events')->insertGetId($data);
 		} else {
-			RC_DB::table('notification_events')->where('id', $_GET['id'])->update(array('status'=> 'open'));
+			RC_DB::connection('ecjia')->table('notification_events')->where('id', $_GET['id'])->update(array('status'=> 'open'));
 		}
 		ecjia_admin::admin_log($_GET['code'], 'add', 'push_events');
 		return $this->showmessage(__('开启成功', 'push'), ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_SUCCESS, array('pjaxurl' => RC_Uri::url('push/admin_events/init')));
@@ -146,7 +146,7 @@ class AdminEventsController extends AdminBase
     {
 		$this->admin_priv('push_event_manage');
 		
-		$notification_events_list = RC_DB::table('notification_events')->where('channel_type', 'push')->lists('event_code');
+		$notification_events_list = RC_DB::connection('ecjia')->table('notification_events')->where('channel_type', 'push')->lists('event_code');
 		$factory = new \Ecjia\App\Push\EventFactory();
 		$events  = $factory->getEvents();
 		foreach ($events as $event) {
@@ -161,12 +161,12 @@ class AdminEventsController extends AdminBase
 				);
 				if (!empty($notification_events_list)) {
 					if (in_array($v, $notification_events_list)) {
-						RC_DB::table('notification_events')->where('event_code', $v)->update($data);
+						RC_DB::connection('ecjia')->table('notification_events')->where('event_code', $v)->update($data);
 					} else {
-						RC_DB::table('notification_events')->insert($data);
+						RC_DB::connection('ecjia')->table('notification_events')->insert($data);
 					}
 				} else {
-					RC_DB::table('notification_events')->insert($data);
+					RC_DB::connection('ecjia')->table('notification_events')->insert($data);
 				}
 			}
 		}
@@ -178,7 +178,7 @@ class AdminEventsController extends AdminBase
 	public function close()
     {
 		$this->admin_priv('push_event_manage');
-		RC_DB::table('notification_events')->where('id', $_GET['id'])->update(array('status'=> 'close'));
+		RC_DB::connection('ecjia')->table('notification_events')->where('id', $_GET['id'])->update(array('status'=> 'close'));
 		ecjia_admin::admin_log($_GET['code'], 'close', 'push_events');
 		return $this->showmessage(__('关闭成功', 'push'), ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_SUCCESS, array('pjaxurl' => RC_Uri::url('push/admin_events/init')));
 	}
@@ -187,7 +187,7 @@ class AdminEventsController extends AdminBase
     {
 		$this->admin_priv('push_event_manage');
 	
-		RC_DB::table('notification_events')->where('channel_type', 'push')->update(array('status' => 'close'));
+		RC_DB::connection('ecjia')->table('notification_events')->where('channel_type', 'push')->update(array('status' => 'close'));
 	
 		return $this->showmessage(__('全部关闭成功', 'push'), ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_SUCCESS, array('pjaxurl' => RC_Uri::url('push/admin_events/init')));
 	}
