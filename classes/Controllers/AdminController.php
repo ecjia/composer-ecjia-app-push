@@ -142,7 +142,7 @@ class AdminController extends AdminBase
 		
 		$device_code = $_POST['device_code'];
 		if (!empty($device_code)) {
-			$client_info = with(new \Ecjia\App\Client\ApplicationFactory)->client($device_code);
+			$client_info = with(new \Ecjia\App\Client\ApplicationFactory\ApplicationFactory)->client($device_code);
 			$push_object = $client_info->getPlatform()->getOpenTypes();
 			$object_data = array();
 			foreach ($push_object as $k => $event) {
@@ -164,7 +164,7 @@ class AdminController extends AdminBase
 		$device_code = $_POST['device_code'];
 		$object_type = $_POST['object_type'];
 		if(!empty($object_type)) {
-			$client_info = with(new \Ecjia\App\Client\ApplicationFactory)->client($device_code);
+			$client_info = with(new \Ecjia\App\Client\ApplicationFactory\ApplicationFactory)->client($device_code);
 			$object_info = $client_info->getPlatform()->getOpenTypes($object_type);
 			$args = $object_info->getArguments();
 			
@@ -314,7 +314,7 @@ class AdminController extends AdminBase
 		
 		
 		//获取打开动作列表
-		$client_info = with(new \Ecjia\App\Client\ApplicationFactory)->client($push['device_code']);
+		$client_info = with(new \Ecjia\App\Client\ApplicationFactory\ApplicationFactory)->client($push['device_code']);
 		$push_object = $client_info->getPlatform()->getOpenTypes();
 		$action_list = array();
 		foreach ($push_object as $k => $event) {
@@ -423,11 +423,11 @@ class AdminController extends AdminBase
 	private function get_product_device_list()
     {
 		
-        $platforms = (new \Ecjia\App\Client\ApplicationFactory())->getPlatformsByOption('config_push');
+        $platforms = (new \Ecjia\App\Client\ApplicationFactory\ApplicationFactory())->getPlatformsByOption('config_push');
         
         $platform_codes = array_keys($platforms);
 
-        $clients = (new \Ecjia\App\Client\ApplicationFactory())->getClientsByPlatform($platform_codes);
+        $clients = (new \Ecjia\App\Client\ApplicationFactory\ApplicationFactory())->getClientsByPlatform($platform_codes);
 
         $product_device_list = collect($platforms)
             ->map(function($platform) {

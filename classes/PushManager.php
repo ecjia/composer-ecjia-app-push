@@ -47,7 +47,7 @@
 
 namespace Ecjia\App\Push;
 
-use Ecjia\App\Client\ApplicationFactory;
+use Ecjia\App\Client\ApplicationFactory\ApplicationFactory;
 use Ecjia\App\Push\EventFactory\EventAbstract;
 use Ecjia\App\Push\Models\PushTemplateModel;
 use Ecjia\App\Push\Models\PushMessageModel;
