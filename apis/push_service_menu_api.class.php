@@ -57,7 +57,7 @@ class push_service_menu_api extends Component_Event_Api
         $menus = ecjia_admin::make_admin_menu('11_content', __('推送消息', 'push'), '', 11);
         
         $submenus = array(
-        	ecjia_admin::make_admin_menu('01_push_device', __('群发推送', 'push'), RC_Uri::url('push/admin/push_action'), 1)->add_purview('push_message'),
+        	//ecjia_admin::make_admin_menu('01_push_device', __('群发推送', 'push'), RC_Uri::url('push/admin/push_action'), 1)->add_purview('push_message'),
         	ecjia_admin::make_admin_menu('02_push_message', __('消息记录', 'push'), RC_Uri::url('push/admin/init'), 2)->add_purview('push_history_manage'),
         	ecjia_admin::make_admin_menu('03_push_event', __('消息事件', 'push'), RC_Uri::url('push/admin_events/init'), 3)->add_purview('push_event_manage'),
         	ecjia_admin::make_admin_menu('04_push_template', __('消息模板', 'push'), RC_Uri::url('push/admin_template/init'), 4)->add_purview('push_template_manage'),
