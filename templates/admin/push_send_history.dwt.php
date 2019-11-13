@@ -67,9 +67,9 @@
 									<!-- {if $val.in_status neq 1} -->
 										<a class="ajaxpush" data-msg='{t domain="push"}您确定要推送该条这条消息吗？{/t}' href='{url path="push/admin/resend" args="message_id={$val.message_id}"}'>{t domain="push"}推送{/t}</a>&nbsp;|&nbsp;
 									<!-- {else} -->
-										<a class="ajaxpush" data-msg='{t domain="push"}您确定要再次推送该条消息吗？{/t}' href='{url path="push/admin/resend" args="message_id={$val.message_id}"}'>{t domain="push"}再次推送{/t}</a>&nbsp;|&nbsp;
+										<a class="ajaxpush" data-msg='{t domain="push"}您确定要再次推送该条消息吗？{/t}' href='{url path="push/admin/resend" args="message_id={$val.message_id}"}'>{t domain="push"}再次推送{/t}</a>
 									<!-- {/if} -->
-							      	<a class="data-pjax" href='{RC_Uri::url("push/admin/push_copy", "message_id={$val.message_id}")}'>{t domain="push"}消息复用{/t}</a>
+<!-- 							      	&nbsp;|&nbsp;<a class="data-pjax" href='{RC_Uri::url("push/admin/push_copy", "message_id={$val.message_id}")}'>{t domain="push"}消息复用{/t}</a> -->
 								</div>
 							</td>
 							<td>
