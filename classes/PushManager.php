@@ -71,7 +71,7 @@ class PushManager extends RC_Object
     protected $event;
 
     /**
-     * @var \Ecjia\App\Mobile\User
+     * @var \Ecjia\App\Client\User
      */
     protected $user;
 
@@ -103,7 +103,7 @@ class PushManager extends RC_Object
     
     /**
      * 设置用户对象
-     * @param \Ecjia\App\Mobile\User $user
+     * @param \Ecjia\App\Client\User $user
      * @return \Ecjia\App\Push\PushManager
      */
     public function setPushUser($user)
@@ -115,7 +115,7 @@ class PushManager extends RC_Object
     
     /**
      * 获取用户对象
-     * @return \Ecjia\App\Mobile\User
+     * @return \Ecjia\App\Client\User
      */
     public function getPushUser()
     {
