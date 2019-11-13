@@ -147,7 +147,7 @@ class AdminEventsController extends AdminBase
 		$this->admin_priv('push_event_manage');
 		
 		$notification_events_list = RC_DB::connection('ecjia')->table('notification_events')->where('channel_type', 'push')->lists('event_code');
-		$factory = new \Ecjia\App\Push\EventFactory();
+		$factory = new \Ecjia\App\Push\EventFactory\EventFactory();
 		$events  = $factory->getEvents();
 		foreach ($events as $event) {
 			$arr[]  = $event->getCode();
@@ -201,7 +201,7 @@ class AdminEventsController extends AdminBase
 	
 		$template_code_list = array();
 		
-		$factory = new \Ecjia\App\Push\EventFactory();
+		$factory = new \Ecjia\App\Push\EventFactory\EventFactory();
 		
 		$events = $factory->getEvents();
 		

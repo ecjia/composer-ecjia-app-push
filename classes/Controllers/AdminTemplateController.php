@@ -161,7 +161,7 @@ class AdminTemplateController extends AdminBase
 	    $filter = $_POST['JSON'];
 	    $code = trim($filter['code']);
 	    $channel_code = trim($filter['channel_code']);
-	    $event = with(new \Ecjia\App\Push\EventFactory)->event($code);
+	    $event = with(new \Ecjia\App\Push\EventFactory\EventFactory)->event($code);
 
 	    $desc = [];
 	    $getValueHit = $event->getValueHit();
@@ -242,7 +242,7 @@ class AdminTemplateController extends AdminBase
 		$this->assign('channel_code', $channel_code);
 		
 		$event_code = trim($_GET['event_code']);
-		$event = with(new \Ecjia\App\Push\EventFactory)->event($event_code);
+		$event = with(new \Ecjia\App\Push\EventFactory\EventFactory)->event($event_code);
 		
 		$desc = [];
 		$getValueHit = $event->getValueHit();
@@ -396,7 +396,7 @@ class AdminTemplateController extends AdminBase
 		
 		$template_code_list = array();
 		
-		$factory = new \Ecjia\App\Push\EventFactory();
+		$factory = new \Ecjia\App\Push\EventFactory\EventFactory();
 		
 		$events = $factory->getEvents();
 		foreach ($events as $event) {
