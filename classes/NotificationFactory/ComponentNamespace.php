@@ -14,7 +14,7 @@ class ComponentNamespace extends \Ecjia\Component\ComponentFactory\ComponentName
      */
     protected function getDefaultDir()
     {
-        return RC_App::getAbsolutePath('push') . '/classes/Clients';
+        return RC_App::getAbsolutePath('push') . 'classes/Clients';
     }
 
     /**
