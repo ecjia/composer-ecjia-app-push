@@ -4,6 +4,8 @@
 namespace Ecjia\App\Push\NotificationFactory;
 
 
+use RC_App;
+
 class ComponentNamespace extends \Ecjia\Component\ComponentFactory\ComponentNamespace
 {
 
@@ -12,7 +14,7 @@ class ComponentNamespace extends \Ecjia\Component\ComponentFactory\ComponentName
      */
     protected function getDefaultDir()
     {
-        return royalcms()->resourcePath('components/PushEvents');
+        return RC_App::getAbsolutePath('push') . '/classes/Clients';
     }
 
     /**
@@ -20,7 +22,7 @@ class ComponentNamespace extends \Ecjia\Component\ComponentFactory\ComponentName
      */
     protected function getDefaultNamespace()
     {
-        return 'Ecjia\Resources\Components\PushEvents';
+        return 'Ecjia\App\Push\Clients';
     }
 
 }
