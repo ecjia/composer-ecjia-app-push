@@ -345,7 +345,7 @@ class AdminTemplateController extends AdminBase
 			'user_id'   => $user_id,
 			'user_type' => $_POST['target'],
 			'event'     => $_POST['template_code'],
-			'value' 	=> $data,
+			'value' 	=> empty($data) ? [] : $data,
 			'field' 	=> array(),
 		);
 
