@@ -298,7 +298,7 @@ class AdminController extends AdminBase
 		$this->admin_priv('push_message');
 		
 		ecjia_screen::get_current_screen()->add_nav_here(new admin_nav_here(__('消息复用', 'push')));
-		$this->assign('ur_here', '消息复用');
+		$this->assign('ur_here', __('消息复用', 'push'));
 		$this->assign('action_link', array('text' => __('消息记录列表', 'push'), 'href' => RC_Uri::url('push/admin/init')));
 		
 		//获取产品

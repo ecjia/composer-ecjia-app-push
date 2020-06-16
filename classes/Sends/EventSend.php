@@ -45,7 +45,7 @@ class EventSend
         $template = $this->push->getTemplateModel()->getTemplateByCode($this->push->getEvent()->getCode(), $this->plugin);
         if (empty($template))
         {
-            return new ecjia_error('push_template_not_exist', __('消息模板不存在'));
+            return new ecjia_error('push_template_not_exist', __('消息模板不存在', 'push'));
         }
 
         $content = new PushContent();

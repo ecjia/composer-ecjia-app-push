@@ -181,7 +181,7 @@ class PushManager extends RC_Object
     {
         $message = PushMessageModel::find($messageid);
         if (empty($message)) {
-            return new ecjia_error('not_found_messageid', '没有找到该消息ID');
+            return new ecjia_error('not_found_messageid', __('没有找到该消息ID', 'push'));
         }
     
         $plugin         = $message['channel_code'];
@@ -204,7 +204,7 @@ class PushManager extends RC_Object
                 $push_umeng = $client->getOption($plugin);
 
                 if (empty($push_umeng)) {
-                    return new ecjia_error('push_meng_config_not_found', 'APP推送配置信息不存在');
+                    return new ecjia_error('push_meng_config_not_found', __('APP推送配置信息不存在', 'push'));
                 }
 
                 $debug        = $push_umeng['environment'] == 'develop' ? true : false;
@@ -354,7 +354,7 @@ class PushManager extends RC_Object
      */
     public function batchResend(array $message_ids) {
         if (empty($message_ids)) {
-            return new ecjia_error('invalid_argument', __('无效参数'));
+            return new ecjia_error('invalid_argument', __('无效参数', 'push'));
         }
     
         $result = array();
@@ -388,7 +388,7 @@ class PushManager extends RC_Object
                 $push_umeng = $client->getOption($plugin);
 
                 if (empty($push_umeng)) {
-                    return new ecjia_error('push_meng_config_not_found', 'APP推送配置信息不存在');
+                    return new ecjia_error('push_meng_config_not_found', __('APP推送配置信息不存在', 'push'));
                 }
 
                 $debug  = $push_umeng['environment'] == 'develop' ? true : false;
@@ -430,11 +430,11 @@ class PushManager extends RC_Object
     public function unicastSend($device_code, $device_token, array $extended_field = [], $priority = 1)
     {
         if (empty($device_code)) {
-            return new ecjia_error('device_code_not_found', 'Device Code参数必传！');
+            return new ecjia_error('device_code_not_found', __('Device Code参数必传！', 'push'));
         }
         
         if (empty($device_token)) {
-            return new ecjia_error('device_token_not_found', 'Device Token参数必传！');
+            return new ecjia_error('device_token_not_found', __('Device Token参数必传！', 'push'));
         }
         
         $beforeSend = true;
@@ -451,7 +451,7 @@ class PushManager extends RC_Object
                 $push_umeng = $client->getOption($plugin);
 
                 if (empty($push_umeng)) {
-                    return new ecjia_error('push_meng_config_not_found', 'APP推送配置信息不存在');
+                    return new ecjia_error('push_meng_config_not_found', __('APP推送配置信息不存在', 'push'));
                 }
 
                 $debug  = $push_umeng['environment'] == 'develop' ? true : false;

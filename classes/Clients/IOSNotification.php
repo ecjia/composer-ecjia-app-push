@@ -161,7 +161,7 @@ class IOSNotification extends NotificationAbstract
 			$filecast->setPredefinedKeyValue("appkey",           $this->appKey);
 			$filecast->setPredefinedKeyValue("timestamp",        $this->timestamp);
 
-			$filecast->setPredefinedKeyValue("alert", "IOS 文件播测试");
+			$filecast->setPredefinedKeyValue("alert", __('IOS 文件播测试', 'push'));
 			$filecast->setPredefinedKeyValue("badge", 0);
 			$filecast->setPredefinedKeyValue("sound", "chime");
 			// Set 'production_mode' to 'true' if your app is under production mode
@@ -209,7 +209,7 @@ class IOSNotification extends NotificationAbstract
 			$groupcast->setPredefinedKeyValue("timestamp",        $this->timestamp);
 			// Set the filter condition
 			$groupcast->setPredefinedKeyValue("filter",           $filter);
-			$groupcast->setPredefinedKeyValue("alert", "IOS 组播测试");
+			$groupcast->setPredefinedKeyValue("alert", __('IOS 组播测试', 'push'));
 			$groupcast->setPredefinedKeyValue("badge", 0);
 			$groupcast->setPredefinedKeyValue("sound", "chime");
 			// Set 'production_mode' to 'true' if your app is under production mode
@@ -239,7 +239,7 @@ class IOSNotification extends NotificationAbstract
 			$customizedcast->setPredefinedKeyValue("alias", "xx");
 			// Set your alias_type here
 			$customizedcast->setPredefinedKeyValue("alias_type", "xx");
-			$customizedcast->setPredefinedKeyValue("alert", "IOS 个性化测试");
+			$customizedcast->setPredefinedKeyValue("alert", __('IOS 个性化测试', 'push'));
 			$customizedcast->setPredefinedKeyValue("badge", 0);
 			$customizedcast->setPredefinedKeyValue("sound", "chime");
 			// Set 'production_mode' to 'true' if your app is under production mode
