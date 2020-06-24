@@ -11,7 +11,7 @@
 {if !$template_code_list}
 <div class="alert">
 	<a class="close" data-dismiss="alert">×</a>
-	<strong>{t domain="push"}温馨提示：{/t}</strong>{t domain="push"}暂时未有消息模板可添加。{/t}
+	{t domain="push"}<strong>温馨提示：</strong>暂时未有消息模板可添加。{/t}
 </div>
 {/if}
 

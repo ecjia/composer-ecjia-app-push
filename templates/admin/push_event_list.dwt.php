@@ -22,10 +22,10 @@
 				<table class="table table-striped table-hide-edit" data-rowlink="a">
 					<thead>
 						<tr>
-							<th class="w200">{t}事件名称{/t}</th>
-							<th>{t}Code{/t}</th>
-							<th>{t}应用名称{/t}</th>
-							<th class="w100">{t}创建时间{/t}</th>
+							<th class="w200">{t domain="push"}事件名称{/t}</th>
+							<th>{t domain="push"}Code{/t}</th>
+							<th>{t domain="push"}应用名称{/t}</th>
+							<th class="w100">{t domain="push"}创建时间{/t}</th>
 						</tr>
 					</thead>
 					<!-- {foreach from=$push_event item=item key=key name=children} -->
@@ -36,8 +36,8 @@
 						<td class="hide-edit-area">
 							{$item.event_code}
 							<div class="edit-list">
-								<a class="data-pjax" href="{RC_Uri::url('push/admin_event/edit',"code={$item.event_code}")}" title="{t}编辑{/t}">{t}编辑{/t}</a>&nbsp;|&nbsp;
-								<a data-toggle="ajaxremove" class="ajaxremove ecjiafc-red" data-msg="{t}您确定要删除该消息事件吗？{/t}" href="{RC_Uri::url('push/admin_event/remove',"code={$item.event_code}")}" title="{t}移除{/t}">{t}删除{/t}</a>
+								<a class="data-pjax" href="{RC_Uri::url('push/admin_event/edit',"code={$item.event_code}")}" title='{t domain="push"}编辑{/t}'>{t domain="push"}编辑{/t}</a>&nbsp;|&nbsp;
+								<a data-toggle="ajaxremove" class="ajaxremove ecjiafc-red" data-msg='{t domain="push"}您确定要删除该消息事件吗？{/t}' href="{RC_Uri::url('push/admin_event/remove',"code={$item.event_code}")}" title='{t domain="push"}移除{/t}'>{t domain="push"}删除{/t}</a>
 						    </div>
 						</td>
 						<td>
@@ -50,7 +50,7 @@
 						</td>
 					</tr>
 					<!-- {foreachelse} -->
-					   <tr><td class="no-records" colspan="7">{t}没有找到任何记录{/t}</td></tr>
+					   <tr><td class="no-records" colspan="7">{t domain="push"}没有找到任何记录{/t}</td></tr>
 					<!-- {/foreach} -->
 				</table>
 			</div>
