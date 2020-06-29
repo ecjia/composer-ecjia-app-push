@@ -82,6 +82,8 @@ return array(
 		'content_no_empty' => __('模板内容不能为空！', 'push'),
 	),
     'push' => array(
+        'title_required' => __('标题内容不能为空！', 'push'),
+        'content_required' => __('模板内容不能为空！', 'push'),
     ),
     'push_action' => array(
         'no_search_admin'	 => __('未搜索到管理员信息', 'push'),

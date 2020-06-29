@@ -170,10 +170,10 @@
                 },
                 messages: {
                     title: {
-                        required: js_lang.title_required
+                        required: js_lang_push.title_required
                     },
                     content: {
-                        required: js_lang.content_required
+                        required: js_lang_push.content_required
                     },
                 },
                 submitHandler: function () {
