@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ecjia App push 2.18.0\n"
 "Report-Msgid-Bugs-To: https://make.ecjia.com/polyglots/\n"
-"POT-Creation-Date: 2020-06-24 08:18:17+00:00\n"
+"POT-Creation-Date: 2020-06-29 09:16:06+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -28,42 +28,42 @@ msgstr ""
 msgid "IOS 个性化测试"
 msgstr ""
 
-#: classes/Controllers/AdminController.php:91
-#: classes/Controllers/AdminController.php:102
+#: classes/Controllers/AdminController.php:93
+#: classes/Controllers/AdminController.php:104
 #: classes/Services/ServiceMenuService.php:65
 msgid "消息记录"
 msgstr ""
 
-#: classes/Controllers/AdminController.php:104
+#: classes/Controllers/AdminController.php:106
 msgid "群发推送"
 msgstr ""
 
-#: classes/Controllers/AdminController.php:105
-#: classes/Controllers/AdminController.php:124
-#: classes/Controllers/AdminController.php:302
+#: classes/Controllers/AdminController.php:107
+#: classes/Controllers/AdminController.php:126
+#: classes/Controllers/AdminController.php:304
 msgid "消息记录列表"
 msgstr ""
 
-#: classes/Controllers/AdminController.php:122
-#: classes/Controllers/AdminController.php:123 configs/package.php:12
+#: classes/Controllers/AdminController.php:124
+#: classes/Controllers/AdminController.php:125 configs/package.php:12
 msgid "消息推送"
 msgstr ""
 
-#: classes/Controllers/AdminController.php:240
+#: classes/Controllers/AdminController.php:242
 msgid "未获取到要推送的用户"
 msgstr ""
 
-#: classes/Controllers/AdminController.php:251
-#: classes/Controllers/AdminController.php:268
+#: classes/Controllers/AdminController.php:253
+#: classes/Controllers/AdminController.php:270
 msgid "推送成功"
 msgstr ""
 
-#: classes/Controllers/AdminController.php:288
+#: classes/Controllers/AdminController.php:290
 msgid "消息推送成功"
 msgstr ""
 
-#: classes/Controllers/AdminController.php:300
-#: classes/Controllers/AdminController.php:301
+#: classes/Controllers/AdminController.php:302
+#: classes/Controllers/AdminController.php:303
 msgid "消息复用"
 msgstr ""
 
@@ -280,15 +280,15 @@ msgstr ""
 msgid "（从_MAX_条数据中检索）"
 msgstr ""
 
-#: configs/jslang.php:75
+#: configs/jslang.php:75 configs/jslang.php:90
 msgid "未搜索到会员信息"
 msgstr ""
 
-#: configs/jslang.php:76
+#: configs/jslang.php:76 configs/jslang.php:91
 msgid "未搜索到商家会员信息"
 msgstr ""
 
-#: configs/jslang.php:77
+#: configs/jslang.php:77 configs/jslang.php:89
 msgid "未搜索到管理员信息"
 msgstr ""
 
@@ -296,12 +296,24 @@ msgstr ""
 msgid "请输入手机号"
 msgstr ""
 
-#: configs/jslang.php:81
+#: configs/jslang.php:81 configs/jslang.php:93
 msgid "消息主题不能为空！"
 msgstr ""
 
-#: configs/jslang.php:82
+#: configs/jslang.php:82 configs/jslang.php:86
 msgid "模板内容不能为空！"
+msgstr ""
+
+#: configs/jslang.php:85
+msgid "标题内容不能为空！"
+msgstr ""
+
+#: configs/jslang.php:92
+msgid "请选择"
+msgstr ""
+
+#: configs/jslang.php:94
+msgid "消息内容不能为空！"
 msgstr ""
 
 #: configs/package.php:13
@@ -441,15 +453,6 @@ msgstr ""
 #: /content/apps/push/templates/admin/push_event_info.dwt.php:102
 #: /content/apps/push/templates/admin/push_event_info.dwt.php:157
 msgid "客户端应用："
-msgstr ""
-
-#: /content/apps/push/templates/admin/push_event_info.dwt.php:105
-#: /content/apps/push/templates/admin/push_event_info.dwt.php:117
-#: /content/apps/push/templates/admin/push_event_info.dwt.php:160
-#: /content/apps/push/templates/admin/push_event_info.dwt.php:172
-#: /content/apps/push/templates/admin/push_template_info.dwt.php:35
-#: /content/apps/push/templates/admin/push_send.dwt.php:61
-msgid "请选择"
 msgstr ""
 
 #: /content/apps/push/templates/admin/push_event_info.dwt.php:114
