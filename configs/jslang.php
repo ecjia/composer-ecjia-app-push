@@ -80,6 +80,16 @@ return array(
 		//添加编辑消息模板
 		'subject_no_empty' => __('消息主题不能为空！', 'push'),	
 		'content_no_empty' => __('模板内容不能为空！', 'push'),
-	)
+	),
+    'push' => array(
+    ),
+    'push_action' => array(
+        'no_search_admin'	 => __('未搜索到管理员信息', 'push'),
+        'no_search_user'	 => __('未搜索到会员信息', 'push'),
+        'no_search_seller'	 => __('未搜索到商家会员信息', 'push'),
+        'please_select'	 => __('请选择', 'push'),
+        'message_title_cant_null'	 => __('消息主题不能为空！', 'push'),
+        'message_desc_cant_null'	 => __('消息内容不能为空！', 'push'),
+    )
 );
 //end

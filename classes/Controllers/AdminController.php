@@ -80,7 +80,9 @@ class AdminController extends AdminBase
 		RC_Style::enqueue_style('datepicker', RC_Uri::admin_url('statics/lib/datepicker/datepicker.css'));
 		
 		RC_Script::enqueue_script('push', RC_App::apps_url('statics/js/push.js', $this->__FILE__), array(), false, true);
+        RC_Script::localize_script('push', 'js_lang_push', config('app-push::jslang.push'));
 		RC_Script::enqueue_script('push_action', RC_App::apps_url('statics/js/push_action.js', $this->__FILE__), array(), false, true);
+        RC_Script::localize_script('push_action', 'js_lang_push_action', config('app-push::jslang.push_action'));
 		
 		RC_Style::enqueue_style('push_event', RC_App::apps_url('statics/css/push_event.css', $this->__FILE__), array(), false, false);
 		RC_Style::enqueue_style('push_action', RC_App::apps_url('statics/css/push_action.css', $this->__FILE__), array(), false, false);

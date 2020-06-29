@@ -69,7 +69,7 @@
     					$('.admin_list').append(opt_admin);
     				};
     			} else {
-    				$('.admin_list').append('<option value="0">未搜索到管理员信息</option>');
+    				$('.admin_list').append('<option value="0">'+js_lang_push_action.no_search_admin+'</option>');
     			}
     			$('.admin_list').trigger("liszt:updated").trigger("change");
     		},
@@ -96,7 +96,7 @@
     					$('.user_list').append(opt_user);
     				};
     			} else {
-    				$('.user_list').append('<option value="0">未搜索到会员信息</option>');
+    				$('.user_list').append('<option value="0">'+js_lang_push_action.no_search_user+'</option>');
     			}
     			$('.user_list').trigger("liszt:updated").trigger("change");
     		},
@@ -124,7 +124,7 @@
     					$('.merchant_user_list').append(opt_mer);
     				};
     			} else {
-    				$('.merchant_user_list').append('<option value="0">未搜索到商家会员信息</option>');
+    				$('.merchant_user_list').append('<option value="0">'+js_lang_push_action.no_search_seller+'</option>');
     			}
     			$('.merchant_user_list').trigger("liszt:updated").trigger("change");
     		},
@@ -133,7 +133,7 @@
             ajax_admin_list :function(data){
             	var object_list = data.object_data;
             	
-            	var html = '<option value="0">请选择</option>';
+            	var html = '<option value="0">'+js_lang_push_action.please_select+'</option>';
                 for (var i in object_list) {
                     var item = object_list[i];
                         html += '<option value="' + item.type + '">' + item.name + '</option>';
@@ -168,7 +168,7 @@
             },       
             ajax_event_select_data :function(data){
             	var object_list = data.object_data;
-            	var html = '<option value="0">请选择</option>';
+            	var html = '<option value="0">'+js_lang_push_action.please_select+'</option>';
                 for (var i in object_list) {
                     var item = object_list[i];
                         html += '<option value="' + item.type + '">' + item.name + '</option>';
@@ -224,10 +224,10 @@
                     },
                     messages: {
                     	title: {
-                            required: '消息主题不能为空！'
+                            required: js_lang_push_action.message_title_cant_null
                         },
                         content: {
-                            required: '消息内容不能为空！'
+                            required: js_lang_push_action.message_desc_cant_null
                         }
                     },
                     submitHandler: function () {
