@@ -22,7 +22,7 @@ class PushServiceProvider extends  AppParentServiceProvider
     {
         RC_Service::addService('admin_purview', 'push', 'Ecjia\App\Push\Services\AdminPurviewService');
         RC_Service::addService('push_event_send', 'push', 'Ecjia\App\Push\Services\PushEventSendService');
-        RC_Service::addService('service_menu', 'push', 'Ecjia\App\Push\Services\ServiceMenuService');
+        RC_Service::addService('admin_menu', 'push', 'Ecjia\App\Push\Services\AdminMenuService');
     }
     
     

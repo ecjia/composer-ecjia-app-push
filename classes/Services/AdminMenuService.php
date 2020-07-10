@@ -53,7 +53,7 @@ use RC_Uri;
  * 后台文章菜单API
  * @author royalwang
  */
-class ServiceMenuService
+class AdminMenuService
 {
 
     public function handle(& $options)
