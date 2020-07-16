@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the Ecjia App push package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Ecjia App push 2.18.0\n"
+"Project-Id-Version: Ecjia App push 2.18.1\n"
 "Report-Msgid-Bugs-To: https://make.ecjia.com/polyglots/\n"
-"POT-Creation-Date: 2020-06-29 09:16:06+00:00\n"
+"POT-Creation-Date: 2020-07-16 07:12:08+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -30,7 +30,7 @@ msgstr ""
 
 #: classes/Controllers/AdminController.php:93
 #: classes/Controllers/AdminController.php:104
-#: classes/Services/ServiceMenuService.php:65
+#: classes/Services/AdminMenuService.php:65
 msgid "消息记录"
 msgstr ""
 
@@ -68,8 +68,8 @@ msgid "消息复用"
 msgstr ""
 
 #: classes/Controllers/AdminEventsController.php:103
-#: classes/Services/AdminPurviewService.php:20
-#: classes/Services/ServiceMenuService.php:66 functions/global.func.php:5
+#: classes/Services/AdminMenuService.php:66
+#: classes/Services/AdminPurviewService.php:20 functions/global.func.php:5
 msgid "消息事件"
 msgstr ""
 
@@ -106,7 +106,7 @@ msgstr ""
 #: classes/Controllers/AdminTemplateController.php:109
 #: classes/Controllers/AdminTemplateController.php:132
 #: classes/Controllers/AdminTemplateController.php:220
-#: classes/Services/ServiceMenuService.php:67 functions/global.func.php:4
+#: classes/Services/AdminMenuService.php:67 functions/global.func.php:4
 msgid "消息模板"
 msgstr ""
 
@@ -207,8 +207,8 @@ msgstr ""
 msgid "消息模板不存在"
 msgstr ""
 
+#: classes/Services/AdminMenuService.php:61
 #: classes/Services/AdminPurviewService.php:19
-#: classes/Services/ServiceMenuService.php:61
 msgid "推送消息"
 msgstr ""
 
