@@ -76,7 +76,7 @@ class NotificationFactory extends \Ecjia\Component\ComponentFactory\ComponentFac
     }
 
     /**
-     * @return \Ecjia\System\Frameworks\Component\Cache
+     * @return \Ecjia\Component\Cache\Cache
      */
     public function getCacheInstance()
     {

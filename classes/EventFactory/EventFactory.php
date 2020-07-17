@@ -76,7 +76,7 @@ class EventFactory extends \Ecjia\Component\ComponentFactory\ComponentFactory
     }
 
     /**
-     * @return \Ecjia\System\Frameworks\Component\Cache
+     * @return \Ecjia\Component\Cache\Cache
      */
     public function getCacheInstance()
     {
