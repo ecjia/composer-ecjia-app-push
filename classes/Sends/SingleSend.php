@@ -73,6 +73,8 @@ class SingleSend
              */
             $result = RC_Hook::apply_filters('push_event_send_after', $result, $item, $template_var, $extended_field);
 
+            \RC_Logger::getLogger('error')->info('test555');
+            
             $this->push->addRecord($item['device_code'], $item['device_client'], $item['device_token'], $template['template_subject'], $template['template_id'], $template_var, $extended_field, $content->getContent(), $this->plugin, $result);
 
             if (is_ecjia_error($result)) {

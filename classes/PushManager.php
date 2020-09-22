@@ -189,6 +189,7 @@ class PushManager extends RC_Object
         $extended_field = unserialize(array_get($message, 'extradata', serialize([])));
         $template_var   = unserialize(array_get($message, 'content_params', serialize([])));
     
+        
         $beforeSend = true;
         $beforeSend = RC_Hook::apply_filters('push_resend_send_before', $beforeSend, $template_var, $extended_field);
         if (is_ecjia_error($beforeSend))
@@ -271,6 +272,9 @@ class PushManager extends RC_Object
      */
     public function addRecord($device_code, $device_client, $device_token, $template_subject, $template_id, $template_var, $extended_field, $msg, $plugin, $result, $priority = 1)
     {
+    	
+    	\RC_Logger::getLogger('error')->info('test666');
+    	
         $data = array(
             'device_code'       => $device_code,
             'device_token'      => $device_token,
