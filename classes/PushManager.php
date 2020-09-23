@@ -271,10 +271,7 @@ class PushManager extends RC_Object
      * @param number $priority
      */
     public function addRecord($device_code, $device_client, $device_token, $template_subject, $template_id, $template_var, $extended_field, $msg, $plugin, $result, $priority = 1)
-    {
-    	
-    	\RC_Logger::getLogger('error')->info('test666');
-    	
+    {   	
         $data = array(
             'device_code'       => $device_code,
             'device_token'      => $device_token,

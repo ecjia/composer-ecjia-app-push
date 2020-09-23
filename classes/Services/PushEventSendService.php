@@ -91,8 +91,6 @@ class PushEventSendService
 	        return new ecjia_error('event_not_open',  sprintf(__('请先开启推送消息%s事件', 'sms'), $eventHandler->getName()));
 	    }
 	    
-	    \RC_Logger::getLogger('error')->info('test222');
-	    
 	    $result = PushManager::make()
                ->setTemplateModel(new PushTemplateModel())
 	           ->setEvent($eventHandler)

@@ -40,8 +40,6 @@ class EventSend
     {
 
         list($template_var, $extended_field) = $this->args;
-
-        \RC_Logger::getLogger('error')->info('test333');
         
         //发送
         $template = $this->push->getTemplateModel()->getTemplateByCode($this->push->getEvent()->getCode(), $this->plugin);
@@ -62,10 +60,6 @@ class EventSend
         $user = $this->push->getPushUser();
         $devices = $this->push->getPushUser()->getDevices(7);
         
-        \RC_Logger::getLogger('error')->info('test444');
-        \RC_Logger::getLogger('error')->info($devices->toArray());
-        
-
         $result = $devices->map(function ($item) use ($content, $template, $user) {
             $data['device'] = $item;
             $data['content'] = $content;
