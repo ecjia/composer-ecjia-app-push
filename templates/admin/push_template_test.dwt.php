@@ -26,7 +26,7 @@
 					<label class="control-label">{t domain="push"}推送对象：{/t}</label>
 					<div class="controls chk_radio">
 						<input type="radio" class="uni_style" name="target" value="user" checked="checked"/><span>{t domain="push"}用户{/t}</span>
-						<input type="radio" class="uni_style" name="target" value="merchant" /><span>{t domain="push"}商家用户{/t}</span>
+<!-- 						<input type="radio" class="uni_style" name="target" value="merchant" /><span>{t domain="push"}商家用户{/t}</span> -->
 						<input type="radio" class="uni_style" name="target" value="admin" /><span>{t domain="push"}管理员{/t}</span>
 					</div>
 				</div>
