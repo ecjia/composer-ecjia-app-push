@@ -11,6 +11,7 @@ namespace Ecjia\App\Push\Sends;
 use Ecjia\App\Push\PushContent;
 use Ecjia\App\Push\PushManager;
 use ecjia_error;
+use RC_Api;
 
 class EventSend
 {
@@ -43,10 +44,12 @@ class EventSend
         
         //发送
         $template = $this->push->getTemplateModel()->getTemplateByCode($this->push->getEvent()->getCode(), $this->plugin);
-        if (empty($template))
-        {
+        if (empty($template)) {
             return new ecjia_error('push_template_not_exist', __('消息模板不存在', 'push'));
         }
+
+        $user = $this->push->getPushUser();
+        $devices = $this->push->getPushUser()->getDevices(7);
 
         $content = new PushContent();
         $content->setContent($template['template_content']);
@@ -57,8 +60,15 @@ class EventSend
         $content->setSound($this->push->getEvent()->getSound());
         $content->setMutableContent($this->push->getEvent()->getMutableContent());
 
-        $user = $this->push->getPushUser();
-        $devices = $this->push->getPushUser()->getDevices(7);
+        //添加消息未读条数
+        if ($user->getUserType() == 'merchant') {
+            $count = RC_Api::api('notification', 'notification_unread_count', ['user_id' => $user->getUserId(), 'user_model' => 'orm_admin_user_model']);
+            $content->setBadge($count);
+        }
+        elseif ($user->getUserType() == 'user') {
+            $count = RC_Api::api('notification', 'notification_unread_count', ['user_id' => $user->getUserId(), 'user_model' => 'orm_users_model']);
+            $content->setBadge($count);
+        }
         
         $result = $devices->map(function ($item) use ($content, $template, $user) {
             $data['device'] = $item;
