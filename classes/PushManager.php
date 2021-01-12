@@ -192,66 +192,63 @@ class PushManager extends RC_Object
         
         $beforeSend = true;
         $beforeSend = RC_Hook::apply_filters('push_resend_send_before', $beforeSend, $template_var, $extended_field);
-        if (is_ecjia_error($beforeSend))
-        {
+        if (is_ecjia_error($beforeSend)) {
             return $beforeSend;
         }
-        else
-        {
-            try {
-                $client = $message['device_client'];
 
-                $client     = (new ApplicationFactory)->client($message['device_code']);
-                $push_umeng = $client->getOption($plugin);
+        try {
+            $client = $message['device_client'];
 
-                if (empty($push_umeng)) {
-                    return new ecjia_error('push_meng_config_not_found', __('APP推送配置信息不存在', 'push'));
-                }
+            $client     = (new ApplicationFactory)->client($message['device_code']);
+            $push_umeng = $client->getOption($plugin);
 
-                $debug        = $push_umeng['environment'] == 'develop' ? true : false;
-                $key          = $push_umeng['app_key'];
-                $secret       = $push_umeng['app_secret'];
-                $device_token = $message['device_token'];
-
-                $content = new PushContent();
-                $content->setContent($message['content']);
-                $content->setTemplateVar($template_var);
-                $content->setTemplateId($message['template_id']);
-                $content->setSubject($message['title']);
-
-                $push = new PushSend($key, $secret, $debug);
-                $push->setPushContent($content);
-                $push->setClient($message['device_client']);
-                $push->setCustomFields($extended_field);
-
-                if ($device_token == 'broadcast') {
-                    $result = $push->broadcastSend();
-                } else {
-                    $push->setDeviceToken($message['device_token']);
-                    $result = $push->send();
-                }
-
-
-                /**
-                 * 重新发送消息后做什么，过滤器
-                 * @param array $result   推送结果
-                 * @param array $message  推送的消息数据模型对象
-                 * @param array $template_var 模板变量
-                 * @param array $extended_field   扩展字段
-                 * @return $result
-                 */
-                $result = RC_Hook::apply_filters('push_resend_send_after', $result, $message, $template_var, $extended_field);
-
-                $this->updateRecord($message, $result);
-
-                if (is_ecjia_error($result)) {
-                    return $result;
-                }
-
-                return true;
-            } catch (\InvalidArgumentException $e) {
-                return new ecjia_error($e->getCode(), $e->getMessage());
+            if (empty($push_umeng)) {
+                return new ecjia_error('push_config_not_found', __('APP推送配置信息不存在', 'push'));
             }
+
+            $debug        = $push_umeng['environment'] == 'develop' ? true : false;
+            $key          = $push_umeng['app_key'];
+            $secret       = $push_umeng['app_secret'];
+            $device_token = $message['device_token'];
+
+            $content = new PushContent();
+            $content->setContent($message['content']);
+            $content->setTemplateVar($template_var);
+            $content->setTemplateId($message['template_id']);
+            $content->setSubject($message['title']);
+
+            $push = new PushSend($key, $secret, $debug);
+            $push->setPushContent($content);
+            $push->setClient($message['device_client']);
+            $push->setCustomFields($extended_field);
+
+            if ($device_token == 'broadcast') {
+                $result = $push->broadcastSend();
+            } else {
+                $push->setDeviceToken($message['device_token']);
+                $result = $push->send();
+            }
+
+
+            /**
+             * 重新发送消息后做什么，过滤器
+             * @param array $result   推送结果
+             * @param array $message  推送的消息数据模型对象
+             * @param array $template_var 模板变量
+             * @param array $extended_field   扩展字段
+             * @return $result
+             */
+            $result = RC_Hook::apply_filters('push_resend_send_after', $result, $message, $template_var, $extended_field);
+
+            $this->updateRecord($message, $result);
+
+            if (is_ecjia_error($result)) {
+                return $result;
+            }
+
+            return true;
+        } catch (\InvalidArgumentException $e) {
+            return new ecjia_error($e->getCode(), $e->getMessage());
         }
     
     }
