@@ -49,6 +49,12 @@ namespace Ecjia\App\Push\Models;
 
 use Royalcms\Component\Database\Eloquent\Model;
 
+/**
+ * Class PushEventModel
+ * @package Ecjia\App\Push\Models
+ *
+ * @method \Royalcms\Component\Database\Eloquent\Builder|Model sms()
+ */
 class PushEventModel extends Model
 {
 	protected $connection = 'ecjia';
@@ -73,7 +79,11 @@ class PushEventModel extends Model
     {
         return $this->sms()->where('id', $id)->first();
     }
-    
+
+    /**
+     * @param $code
+     * @return mixed
+     */
     public function getEventByCode($code)
     {
         return $this->sms()->where('event_code', $code)->first();

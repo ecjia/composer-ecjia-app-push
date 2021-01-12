@@ -49,6 +49,13 @@ namespace Ecjia\App\Push\Models;
 
 use Royalcms\Component\Database\Eloquent\Model;
 
+/**
+ * Class PushTemplateModel
+ * @package Ecjia\App\Push\Models
+ *
+ * @method \Royalcms\Component\Database\Eloquent\Builder|Model sms()
+ * @method \Royalcms\Component\Database\Eloquent\Builder|Model plugin($code)
+ */
 class PushTemplateModel extends Model
 {
 	protected $connection = 'ecjia';
@@ -83,7 +90,13 @@ class PushTemplateModel extends Model
     {
         return $this->sms()->where('id', $id)->first();
     }
-    
+
+    /**
+     * 获取模板数据
+     * @param $code
+     * @param $plugin
+     * @return mixed
+     */
     public function getTemplateByCode($code, $plugin)
     {
         return $this->sms()->plugin($plugin)->where('template_code', $code)->first();
@@ -92,7 +105,7 @@ class PushTemplateModel extends Model
     /**
      * 获取模板内容
      * @param string $code
-     * @return array template_id, template_content
+     * @return array|bool template_id, template_content
      */
     public function getTemplateContentByCode($code, $plugin)
     {
@@ -104,16 +117,17 @@ class PushTemplateModel extends Model
         
         return false;
     }
-    
-    
+
+
     /**
      * 获取模板ID
      * @param string $code
-     * @return array template_id, template_content
+     * @param $plugin
+     * @return array|bool template_id, template_content
      */
-    public function getTemplateIdByCode($code)
+    public function getTemplateIdByCode($code, $plugin)
     {
-        $data = $this->getTemplateByCode($code);
+        $data = $this->getTemplateByCode($code, $plugin);
     
         if ($data) {
             return array($data['template_id']);

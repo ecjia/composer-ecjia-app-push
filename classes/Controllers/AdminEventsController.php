@@ -68,7 +68,6 @@ class AdminEventsController extends AdminBase
     {
 		parent::__construct();
 		
-// 		RC_Script::enqueue_script('tinymce');
 		RC_Style::enqueue_style('chosen');
 		RC_Style::enqueue_style('uniform-aristo');
 		RC_Script::enqueue_script('jquery-chosen');
