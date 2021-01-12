@@ -17,7 +17,5 @@ class AdminBase extends EcjiaAdminController
 
         $this->__FILE__ = dirname(dirname(__FILE__));
 
-        Helper::assign_adminlog_content();
-
     }
 }
