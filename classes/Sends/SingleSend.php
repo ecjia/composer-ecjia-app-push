@@ -48,10 +48,10 @@ class SingleSend
             $push_umeng = $this->push->getPushUser()->getClientOptions($item['device_code'], $this->plugin);
 
             if (empty($push_umeng)) {
-                return new ecjia_error('push_meng_config_not_found', __('APP推送配置信息不存在', 'push'));
+                return new ecjia_error('push_config_not_found', __('APP推送配置信息不存在', 'push'));
             }
 
-            $debug          = $push_umeng['environment'] == 'develop' ? true : false;
+            $debug          = $push_umeng['environment'] == 'develop';
             $key            = $push_umeng['app_key'];
             $secret         = $push_umeng['app_secret'];
             $device_token   = $item['device_token'];
