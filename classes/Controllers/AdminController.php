@@ -303,7 +303,7 @@ class AdminController extends AdminBase
 
         $message_ids = explode(",", $_POST['message_id']);
 
-        PushMessageModel::whereIn('id', $message_ids)->delete();
+        PushMessageModel::whereIn('message_id', $message_ids)->delete();
 
         foreach ($message_ids as $id) {
             ecjia_admin::admin_log(sprintf(__('删除消息记录，编号是 %s', 'push'), $id), 'remove', 'push_message');
