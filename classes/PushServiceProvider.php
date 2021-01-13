@@ -30,10 +30,9 @@ class PushServiceProvider extends  AppParentServiceProvider
 
     protected function assignAdminLogContent()
     {
-        ecjia_admin_log::add_object('mobile_device', __('移动设备', 'push'));
-        ecjia_admin_log::add_object('mobile_config', __('应用配置', 'push'));
-        ecjia_admin_log::add_object('mobile_manage', __('客户端管理', 'push'));
-        ecjia_admin_log::add_object('mobile_toutiao', __('客户端标题', 'push'));
+        ecjia_admin_log::add_object('config', __('配置', 'push'));
+        ecjia_admin_log::add_object('message_template', __('消息模板', 'push'));
+        ecjia_admin_log::add_object('push_evnet', __('消息事件', 'push'));
     }
     
     
