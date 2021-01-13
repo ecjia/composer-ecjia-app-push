@@ -171,7 +171,7 @@ abstract class NotificationAbstract extends \Ecjia\Component\ComponentFactory\Co
 	
 	public function getBadge()
 	{
-	    return $this->badge;
+	    return $this->badge ?: 1;
 	}
 	
 	public function setMutableContent($mutable)
