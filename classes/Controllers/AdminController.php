@@ -54,6 +54,7 @@ use RC_DB;
 use RC_Lang;
 use RC_Script;
 use RC_Style;
+use RC_Time;
 use RC_Uri;
 
 /**
@@ -406,12 +407,12 @@ class AdminController extends AdminBase
 		->select('*')->orderby('push_time', 'desc')
 		->take(15)
 		->skip($page->start_id-1)
-		->get();
+		->get()->toArray();
 		
 		$device_list = with(new \Ecjia\App\Client\Models\MobileManageModel)->getAllDeviceCode();
 		if (!empty($row)) {
 			foreach ($row AS $key => $val) {
-				$row[$key]['push_time'] = \RC_Time::local_date(ecjia::config('time_format'), $val['push_time']);
+				$row[$key]['push_time'] = RC_Time::local_date(ecjia::config('time_format'), $val['push_time']);
 				$device_info = array_get($device_list, $val['device_code']);
 				$row[$key]['app_name'] = $device_info['app_name'];
 			}
