@@ -61,14 +61,8 @@ class EventSend
         $content->setMutableContent($this->push->getEvent()->getMutableContent());
 
         //添加消息未读条数
-        if ($user->getUserType() == 'merchant') {
-            $count = RC_Api::api('notification', 'notification_unread_count', ['user_id' => $user->getUserId(), 'user_model' => 'orm_admin_user_model']);
-            $content->setBadge($count);
-        }
-        elseif ($user->getUserType() == 'user') {
-            $count = RC_Api::api('notification', 'notification_unread_count', ['user_id' => $user->getUserId(), 'user_model' => 'orm_users_model']);
-            $content->setBadge($count);
-        }
+        $count = RC_Api::api('notification', 'notification_unread_count', ['user_id' => $user->getUserId(), 'user_type' => $user->getUserType()]);
+        $content->setBadge($count);
         
         $result = $devices->map(function ($item) use ($content, $template, $user) {
             $data['device'] = $item;
