@@ -79,11 +79,11 @@
 							<td>
 								{if $val.in_status == 1}
 									{t domain="push"}推送完成{/t}<br>
-									{t domain="push" 1={$val.push_count}}该消息已经被推送了<font class="ecjiafc-red">%1</font>次{/t}<br>
+									{t escape="no" domain="push" 1={$val.push_count}}该消息已经被推送了<font class="ecjiafc-red">%1</font>次{/t}<br>
 									{t domain="push"}推送于：{/t}{$val.push_time}
 								{else}
 									{if $val.last_error_message}
-										<a class="hint--left  hint--error"  data-hint="{$val.last_error_message}">
+										<a class="hint--left  hint--error"  data-hint="{$val.last_error_message|escape}">
 											<span class="ecjiafc-red">
 											<u>{t domain="push"}发送失败{/t}</u></span>
 										</a>
