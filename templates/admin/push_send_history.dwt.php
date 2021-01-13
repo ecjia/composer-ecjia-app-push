@@ -83,7 +83,7 @@
 									{t domain="push"}推送于：{/t}{$val.push_time}
 								{else}
 									{if $val.last_error_message}
-										<a class="hint--left  hint--error"  data-hint="{$val.last_error_message|escape}">
+										<a class="hint--left  hint--error"  data-hint="{$val.last_error_message}">
 											<span class="ecjiafc-red">
 											<u>{t domain="push"}发送失败{/t}</u></span>
 										</a>
