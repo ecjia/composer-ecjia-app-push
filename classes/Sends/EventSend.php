@@ -62,7 +62,7 @@ class EventSend
 
         //添加消息未读条数
         $count = RC_Api::api('notification', 'notification_unread_count', ['user_id' => $user->getUserId(), 'user_type' => $user->getUserType()]);
-        $content->setBadge($count);
+        $content->setBadge(200);
         
         $result = $devices->map(function ($item) use ($content, $template, $user) {
             $data['device'] = $item;
