@@ -48,6 +48,8 @@ namespace Ecjia\App\Push\Controllers;
 
 use admin_nav_here;
 use ecjia;
+use Ecjia\App\Push\Models\PushMessageModel;
+use ecjia_admin;
 use ecjia_screen;
 use RC_App;
 use RC_DB;
@@ -291,68 +293,24 @@ class AdminController extends AdminBase
 			return $this->showmessage(__('消息推送成功', 'push'), ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_SUCCESS, array('pjaxurl' => RC_Uri::url('push/admin/init')));
 		}
 	}
-	
-	
-	/**
-	 *copy消息页面
-	 */
-	public function push_copy()
+
+    /**
+     * 批量删除消息记录
+     */
+    public function batch_delete()
     {
-		$this->admin_priv('push_message');
-		
-		ecjia_screen::get_current_screen()->add_nav_here(new admin_nav_here(__('消息复用', 'push')));
-		$this->assign('ur_here', __('消息复用', 'push'));
-		$this->assign('action_link', array('text' => __('消息记录列表', 'push'), 'href' => RC_Uri::url('push/admin/init')));
-		
-		//获取产品
-		$product_device_list = $this->get_product_device_list();
-		$this->assign('product_device_list', $product_device_list);
-		
-		$message_id = intval($_GET['message_id']);
-		$push = RC_DB::connection('ecjia')->table('push_message')->where('message_id', $message_id)->first();
-	
-		$push['extradata'] = unserialize($push['extradata']);
-		$open_type = $push['extradata']['open_type'];
-		$this->assign('open_type', $open_type);
-		
-		
-		//获取打开动作列表
-		$client_info = with(new \Ecjia\App\Client\ApplicationFactory\ApplicationFactory)->client($push['device_code']);
-		$push_object = $client_info->getPlatform()->getOpenTypes();
-		$action_list = array();
-		foreach ($push_object as $k => $event) {
-			$action_list[$event->getOpenType()] = $event->getName();
-		}
-		$this->assign('action_list', $action_list);
+        $this->admin_priv('push_message');
 
-		//获取打开动作信息
-		$object_info = $push_object[$open_type];
+        $message_ids = explode(",", $_POST['message_id']);
 
-        $args_list = array();
+        PushMessageModel::whereIn('id', $message_ids)->delete();
 
-		if ($object_info) {
-            $args = $object_info->getArguments();
-
-            foreach ($args as $k => $event) {
-                $args_list[$k]['code'] = $event->getCode();
-                $args_list[$k]['name'] = $event->getNmae().'：';
-                $args_list[$k]['description'] = $event->getDescription();
-            }
-
-            foreach ($args_list as $k => $v) {
-                if (array_key_exists($v['code'], $push['extradata'])) {
-                    $args_list[$k]['value'] = $push['extradata'][$v['code']];
-                }
-            }
+        foreach ($message_ids as $id) {
+            ecjia_admin::admin_log(sprintf(__('删除消息记录，编号是 %s', 'push'), $id), 'remove', 'push_message');
         }
 
-		$this->assign('args_list', $args_list);
-		
-		$this->assign('push', $push);
-		$this->assign('form_action', RC_Uri::url('push/admin/push_action_insert'));
-
-        return $this->display('push_send.dwt');
-	}
+        return $this->showmessage(__('消息推送成功', 'push'), ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_SUCCESS, array('pjaxurl' => RC_Uri::url('push/admin/init')));
+    }
 
 	
 	/**
