@@ -311,7 +311,7 @@ class AdminController extends AdminBase
 
         $back_url = RC_Uri::referer_url() ?: RC_Uri::url('push/admin/init');
 
-        return $this->showmessage(__('消息推送成功', 'push'), ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_SUCCESS, array('pjaxurl' => $back_url));
+        return $this->showmessage(__('删除成功', 'push'), ecjia::MSGTYPE_JSON | ecjia::MSGSTAT_SUCCESS, array('pjaxurl' => $back_url));
     }
 
 	

@@ -31,7 +31,7 @@
 			</a>
 			<ul class="dropdown-menu">
 				<li><a class="button_remove" data-toggle="ecjiabatch" data-idClass=".checkbox:checked" data-url='{url path="push/admin/batch_resend"}' data-msg='{t domain="push"}您确定要再次推送该条消息吗？{/t}' data-noSelectMsg='{t domain="push"}请先选中要再次推送的消息{/t}' data-name="message_id" href="javascript:;"><i class="fontello-icon-chat-empty"></i>{t domain="push"}批量发送{/t}</a></li>
-                <li><a class="batch_delete" data-toggle="ecjiabatch" data-idClass=".checkbox:checked" data-url="{url path='push/admin/batch_delete'}" data-msg='{t domain="push"}您确定要删除选中的记录吗？{/t}' data-noSelectMsg='{t domain="push"}请先选中要删除的记录！{/t}' data-name="checkboxes" href="javascript:;"><i class="fontello-icon-trash"></i>{t domain="push"}删除记录{/t}</a></li>
+                <li><a class="batch_delete" data-toggle="ecjiabatch" data-idClass=".checkbox:checked" data-url="{url path='push/admin/batch_delete'}" data-msg='{t domain="push"}您确定要删除选中的记录吗？{/t}' data-noSelectMsg='{t domain="push"}请先选中要删除的记录！{/t}' data-name="message_id" href="javascript:;"><i class="fontello-icon-trash"></i>{t domain="push"}删除记录{/t}</a></li>
 			</ul>
 		</div>
 	
