@@ -77,8 +77,23 @@ class IOSNotification extends NotificationAbstract
 
 			$brocast->setPredefinedKeyValue("description",      $this->push_description);
 			$brocast->setPredefinedKeyValue("alert",            $this->push_content);
-			$brocast->setPredefinedKeyValue("badge", 1);
-			$brocast->setPredefinedKeyValue("sound", "chime");
+
+            if ($this->getMutableContent()) {
+                $brocast->setPredefinedKeyValue("mutable-content",  $this->getMutableContent());
+            }
+
+            if ($this->getBadge()) {
+                $brocast->setPredefinedKeyValue("badge", $this->getBadge());
+            } else {
+                $brocast->setPredefinedKeyValue("badge", 1);
+            }
+
+            if ($this->getSound()) {
+                $brocast->setPredefinedKeyValue("sound", $this->getSound());
+            } else {
+                $brocast->setPredefinedKeyValue("sound", "chime");
+            }
+
 			// Set 'production_mode' to 'true' if your app is under production mode
 			if ($this->debug) {
 			    $brocast->setPredefinedKeyValue("production_mode", "false");
@@ -121,7 +136,7 @@ class IOSNotification extends NotificationAbstract
 			}
 			
 			if ($this->getBadge()) {
-			    $unicast->setPredefinedKeyValue("badge", $this->getBadge());
+                $unicast->setPredefinedKeyValue("badge", $this->getBadge());
 			} else {
 			    $unicast->setPredefinedKeyValue("badge", 1);
 			}
