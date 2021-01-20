@@ -23,9 +23,13 @@ class PushServiceProvider extends  AppParentServiceProvider
 
     protected function registerAppService()
     {
-        RC_Service::addService('admin_purview', 'push', 'Ecjia\App\Push\Services\AdminPurviewService');
-        RC_Service::addService('push_event_send', 'push', 'Ecjia\App\Push\Services\PushEventSendService');
         RC_Service::addService('admin_menu', 'push', 'Ecjia\App\Push\Services\AdminMenuService');
+        RC_Service::addService('admin_purview', 'push', 'Ecjia\App\Push\Services\AdminPurviewService');
+
+        RC_Service::addService('push_event_send', 'push', 'Ecjia\App\Push\Services\PushEventSendService');
+        RC_Service::addService('merchant_send_event', 'push', 'Ecjia\App\Push\Services\MerchantSendEventService');
+        RC_Service::addService('admin_send_event', 'push', 'Ecjia\App\Push\Services\AdminSendEventService');
+        RC_Service::addService('user_send_event', 'push', 'Ecjia\App\Push\Services\UserSendEventService');
     }
 
     protected function assignAdminLogContent()
