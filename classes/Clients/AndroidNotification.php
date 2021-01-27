@@ -94,15 +94,15 @@ class AndroidNotification extends NotificationAbstract
 			}
 
             if ($this->getBadge()) {
-                $brocast->setPredefinedKeyValue("badge", $this->getBadge());
+                $brocast->setExtraField("badge", $this->getBadge());
             } else {
-                $brocast->setPredefinedKeyValue("badge", 1);
+                $brocast->setExtraField("badge", 1);
             }
 
             if ($this->getSound()) {
-                $brocast->setPredefinedKeyValue("sound", $this->getSound());
+                $brocast->setPredefinedKeyValue("sound", basename($this->getSound(), '.mp3'));
             } else {
-                $brocast->setPredefinedKeyValue("sound", "chime");
+                $brocast->setPredefinedKeyValue("sound", "");
             }
 
 			// [optional]Set extra fields
@@ -142,9 +142,9 @@ class AndroidNotification extends NotificationAbstract
 			}
 
             if ($this->getBadge()) {
-                $unicast->setPredefinedKeyValue("badge", $this->getBadge());
+                $unicast->setExtraField("badge", $this->getBadge());
             } else {
-                $unicast->setPredefinedKeyValue("badge", 1);
+                $unicast->setExtraField("badge", 1);
             }
 			
 			if ($this->getSound()) {
