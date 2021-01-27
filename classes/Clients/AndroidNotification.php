@@ -92,6 +92,19 @@ class AndroidNotification extends NotificationAbstract
 			} else {
 			    $brocast->setPredefinedKeyValue("production_mode", "true");
 			}
+
+            if ($this->getBadge()) {
+                $brocast->setPredefinedKeyValue("badge", $this->getBadge());
+            } else {
+                $brocast->setPredefinedKeyValue("badge", 1);
+            }
+
+            if ($this->getSound()) {
+                $brocast->setPredefinedKeyValue("sound", $this->getSound());
+            } else {
+                $brocast->setPredefinedKeyValue("sound", "chime");
+            }
+
 			// [optional]Set extra fields
 			if (is_array($this->custom_fields)) {
 			    foreach ($this->custom_fields as $key => $value) {
@@ -127,6 +140,12 @@ class AndroidNotification extends NotificationAbstract
 			    // Set your device tokens here
 			    $unicast->setPredefinedKeyValue("device_tokens",    implode(',', $this->device_tokens));
 			}
+
+            if ($this->getBadge()) {
+                $unicast->setPredefinedKeyValue("badge", $this->getBadge());
+            } else {
+                $unicast->setPredefinedKeyValue("badge", 1);
+            }
 			
 			if ($this->getSound()) {
 			    $unicast->setPredefinedKeyValue("sound", basename($this->getSound(), '.mp3'));
