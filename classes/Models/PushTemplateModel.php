@@ -53,7 +53,7 @@ use Royalcms\Component\Database\Eloquent\Model;
  * Class PushTemplateModel
  * @package Ecjia\App\Push\Models
  *
- * @method \Royalcms\Component\Database\Eloquent\Builder|Model sms()
+ * @method \Royalcms\Component\Database\Eloquent\Builder|Model channel_push()
  * @method \Royalcms\Component\Database\Eloquent\Builder|Model plugin($code)
  */
 class PushTemplateModel extends Model
@@ -66,9 +66,9 @@ class PushTemplateModel extends Model
     /**
      * 限制查询只包括消息模板。
      *
-     * @return \Royalcms\Component\Database\Eloquent\Builder
+     * @return \Royalcms\Component\Database\Eloquent\Builder|Model
      */
-    public function scopeSms($query)
+    public function scopeChannelPush($query)
     {
         return $query->where('channel_type', 'push');
     }

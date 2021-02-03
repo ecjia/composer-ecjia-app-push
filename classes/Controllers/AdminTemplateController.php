@@ -47,7 +47,9 @@
 namespace Ecjia\App\Push\Controllers;
 
 use admin_nav_here;
+use admin_notice;
 use ecjia;
+use Ecjia\App\Push\Lists\TemplateCodeAvailableOptions;
 use ecjia_admin;
 use ecjia_screen;
 use RC_Api;
@@ -134,16 +136,21 @@ class AdminTemplateController extends AdminBase
 		$this->assign('ur_here', __('添加消息模板', 'push'));
 		$this->assign('action_link', array('href'=>RC_Uri::url('push/admin_template/init',array('channel_code' => $_GET['channel_code'])), 'text' => __('消息模板列表', 'push')));
 		
-		$template_code_list = $this->template_code_list();
-		$existed = RC_DB::connection('ecjia')->table('notification_templates')->where('channel_code', $_GET['channel_code'])->select('template_code','template_subject')->get();
-		if (!empty($existed)) {
-			foreach ($existed as $value) {
-				$existed_list[$value['template_code']] = $value['template_subject']. ' [' .  $value['template_code'] . ']';
-			}
-			$res = array_diff($template_code_list,$existed_list);
-			unset($template_code_list);
-			$template_code_list = $res;
-		}
+//		$template_code_list = $this->template_code_list();
+//		$existed = RC_DB::connection('ecjia')->table('notification_templates')->where('channel_code', $_GET['channel_code'])->select('template_code','template_subject')->get();
+//		if (!empty($existed)) {
+//			foreach ($existed as $value) {
+//				$existed_list[$value['template_code']] = $value['template_subject']. ' [' .  $value['template_code'] . ']';
+//			}
+//			$res = array_diff($template_code_list,$existed_list);
+//			unset($template_code_list);
+//			$template_code_list = $res;
+//		}
+        $template_code_list = (new TemplateCodeAvailableOptions())();
+
+        if (empty($template_code_list)) {
+            ecjia_screen::get_current_screen()->add_admin_notice(new admin_notice(__('<strong>温馨提示：</strong>暂时未有消息模板可添加。', 'push')));
+        }
 		$this->assign('template_code_list', $template_code_list);
 		
 		$channel_code = trim($_GET['channel_code']);

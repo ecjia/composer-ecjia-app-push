@@ -8,13 +8,6 @@
 <!-- {/block} -->
 
 <!-- {block name="main_content"} -->
-{if !$template_code_list}
-<div class="alert">
-	<a class="close" data-dismiss="alert">×</a>
-	{t domain="push"}<strong>温馨提示：</strong>暂时未有消息模板可添加。{/t}
-</div>
-{/if}
-
 <div>
 	<h3 class="heading">
 		<!-- {if $ur_here}{$ur_here}{/if} -->
