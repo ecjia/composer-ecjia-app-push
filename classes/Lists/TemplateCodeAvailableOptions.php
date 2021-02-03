@@ -20,7 +20,7 @@ class TemplateCodeAvailableOptions
 
         $events  = $factory->getEvents();
 
-        $template_codes = PushTemplateModel::channel_push()->select('template_code', 'template_subject')->pluck('template_code')->toArray();
+        $template_codes = PushTemplateModel::channelPush()->select('template_code', 'template_subject')->pluck('template_code')->toArray();
 
         foreach ($events as $event) {
             if (empty($template_codes) || ! in_array($event->getCode(), $template_codes)) {
