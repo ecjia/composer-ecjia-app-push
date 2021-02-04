@@ -87,7 +87,7 @@ class MerchantSendEventService
 	    
 	    $eventHandler = with(new EventFactory())->event($event);
 	    if (!$eventHandler->hasEnabled()) {
-	        return new ecjia_error('event_not_open',  sprintf(__('请先开启推送消息%s事件', 'sms'), $eventHandler->getName()));
+	        return new ecjia_error('event_not_open',  sprintf(__('请先开启推送消息%s事件', 'push'), $eventHandler->getName()));
 	    }
 	    
 	    $result = PushManager::make()
