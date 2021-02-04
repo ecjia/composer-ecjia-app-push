@@ -88,7 +88,7 @@ class PushTemplateModel extends Model
      */
     public function getTemplateById($id)
     {
-        return $this->sms()->where('id', $id)->first();
+        return $this->channelPush()->where('id', $id)->first();
     }
 
     /**
@@ -99,7 +99,7 @@ class PushTemplateModel extends Model
      */
     public function getTemplateByCode($code, $plugin)
     {
-        return $this->sms()->plugin($plugin)->where('template_code', $code)->first();
+        return $this->channelPush()->plugin($plugin)->where('template_code', $code)->first();
     }
     
     /**

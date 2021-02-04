@@ -53,21 +53,21 @@ use Royalcms\Component\Database\Eloquent\Model;
  * Class PushEventModel
  * @package Ecjia\App\Push\Models
  *
- * @method \Royalcms\Component\Database\Eloquent\Builder|Model sms()
+ * @method \Royalcms\Component\Database\Eloquent\Builder|Model channelPush()
  */
 class PushEventModel extends Model
 {
 	protected $connection = 'ecjia';
 	
     protected $table = 'notification_events';
-    
-    
+
+
     /**
      * 限制查询只包括消息模板。
      *
-     * @return \Royalcms\Component\Database\Eloquent\Builder
+     * @return \Royalcms\Component\Database\Eloquent\Builder|Model
      */
-    public function scopeSms($query)
+    public function scopeChannelPush($query)
     {
         return $query->where('channel_type', 'push');
     }
@@ -77,7 +77,7 @@ class PushEventModel extends Model
      */
     public function getEventById($id)
     {
-        return $this->sms()->where('id', $id)->first();
+        return $this->channelPush()->where('id', $id)->first();
     }
 
     /**
@@ -86,7 +86,7 @@ class PushEventModel extends Model
      */
     public function getEventByCode($code)
     {
-        return $this->sms()->where('event_code', $code)->first();
+        return $this->channelPush()->where('event_code', $code)->first();
     }    
     
     
