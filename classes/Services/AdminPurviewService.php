@@ -13,7 +13,7 @@ class AdminPurviewService
      * @param $options
      * @return array
      */
-    public function handle(& $options)
+    public function handle($options)
     {
         $purviews = array(
             array('action_name' => __('推送消息', 'push'), 'action_code' => 'push_message', 'relevance' => ''),

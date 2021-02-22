@@ -56,7 +56,7 @@ use RC_Uri;
 class AdminMenuService
 {
 
-    public function handle(& $options)
+    public function handle($options)
     {
         $menus = ecjia_admin::make_admin_menu('11_content', __('推送消息', 'push'), '', 11);
         

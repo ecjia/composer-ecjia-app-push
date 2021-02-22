@@ -69,7 +69,7 @@ class PushEventSendService
      * @param int priority  优化级
      * @return array | ecjia_error
      */
-	public function handle(& $options)
+	public function handle($options)
     {
 	    if (!is_array($options)) {
 	        return new ecjia_error('invalid_argument', sprintf(__('请求接口%s参数无效', 'push'), __CLASS__));
